@@ -22,6 +22,6 @@ void xd()
     // player_speed_x = std::min(max_speed, std::max(-max_speed, player_speed_x));
     // player_speed_y = std::min(max_speed, std::max(-max_speed, player_speed_y));
 
-    gb.display.setColor(YELLOW);
+    gb.display.setColor(GREEN);
     gb.display.fillRect(player_x, player_y, 3, 3);
 }
