@@ -1,2 +1,2 @@
 # bomberman
-Simple game just for fun practicing cpp
+Simple game just for fun and practicing cpp

@@ -14,7 +14,7 @@ const uint8_t screen_height = 64;
 
 float player_x = 10;
 float player_y = 10;
-float player_speed = 1.5;
+float player_speed = 7;
 
 float player_speed_x = 0;
 float player_speed_y = 0;
