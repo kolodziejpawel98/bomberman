@@ -11,29 +11,35 @@
 #include "debug_framework.hpp"
 // #include "player.hpp"
 #include "global_variables.hpp"
+#include "graphics.hpp"
 
 void moveUp()
 {
-    debugFramework("u");
-    player_speed_y = -player_speed;
+    gb.display.drawImage(playerX, playerY, animationWalkUp);
+    playerSpeedY = -playerSpeed;
 }
 
 void moveDown()
 {
-    debugFramework("d");
-    player_speed_y = player_speed;
+    gb.display.drawImage(playerX, playerY, animationWalkDown);
+    playerSpeedY = playerSpeed;
 }
 
 void moveLeft()
 {
-    debugFramework("l");
-    player_speed_x = -player_speed;
+    gb.display.drawImage(playerX, playerY, animationWalkLeft);
+    playerSpeedX = -playerSpeed;
 }
 
 void moveRight()
 {
-    debugFramework("r");
-    player_speed_x = player_speed;
+    gb.display.drawImage(playerX, playerY, animationWalkRight);
+    playerSpeedX = playerSpeed;
+}
+
+void idle()
+{
+    gb.display.drawImage(playerX, playerY, animationIdle);
 }
 
 void buttonListener()
@@ -53,5 +59,9 @@ void buttonListener()
     else if (gb.buttons.repeat(BUTTON_DOWN, 0))
     {
         moveDown();
+    }
+    else
+    {
+        idle();
     }
 }

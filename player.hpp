@@ -12,18 +12,11 @@
 #include "input_handler.hpp"
 #include "global_variables.hpp"
 
-void xd()
+void playerMove()
 {
-    player_speed_x = 0;
-    player_speed_y = 0;
+    playerSpeedX = 0;
+    playerSpeedY = 0;
     buttonListener();
-    player_x += player_speed_x;
-    player_y += player_speed_y;
-    // player_speed_x = std::min(max_speed, std::max(-max_speed, player_speed_x));
-    // player_speed_y = std::min(max_speed, std::max(-max_speed, player_speed_y));
-
-    gb.display.setColor(LIGHTGREEN);
-    // Color c = gb.createColor(89, 36, 32);
-    // gb.display.setColor(c);
-    gb.display.fillRect(player_x, player_y, 16, 16);
+    playerX += playerSpeedX;
+    playerY += playerSpeedY;
 }

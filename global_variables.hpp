@@ -12,9 +12,8 @@
 const uint8_t SCREEN_WIDTH = 2 * 80;
 const uint8_t SCREEN_HEIGHT = 2 * 64;
 
-float player_x = 10;
-float player_y = 10;
-float player_speed = 7; // zrobic cos zeby przy krotkim nacisnieciu poruszalo sie troche a przydluzszym bardzo
-
-float player_speed_x = 0;
-float player_speed_y = 0;
+float playerX = 10;
+float playerY = 10;
+float playerSpeed = 3;
+float playerSpeedX = 0;
+float playerSpeedY = 0;
