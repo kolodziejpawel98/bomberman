@@ -15,31 +15,31 @@
 
 void moveUp()
 {
-    gb.display.drawImage(playerX, playerY, animationWalkUp);
+    gb.display.drawImage(playerX, playerY, sprite::animationWalkUp);
     playerSpeedY = -playerSpeed;
 }
 
 void moveDown()
 {
-    gb.display.drawImage(playerX, playerY, animationWalkDown);
+    gb.display.drawImage(playerX, playerY, sprite::animationWalkDown);
     playerSpeedY = playerSpeed;
 }
 
 void moveLeft()
 {
-    gb.display.drawImage(playerX, playerY, animationWalkLeft);
+    gb.display.drawImage(playerX, playerY, sprite::animationWalkLeft);
     playerSpeedX = -playerSpeed;
 }
 
 void moveRight()
 {
-    gb.display.drawImage(playerX, playerY, animationWalkRight);
+    gb.display.drawImage(playerX, playerY, sprite::animationWalkRight);
     playerSpeedX = playerSpeed;
 }
 
 void idle()
 {
-    gb.display.drawImage(playerX, playerY, animationIdle);
+    gb.display.drawImage(playerX, playerY, sprite::animationIdle);
 }
 
 void buttonListener()

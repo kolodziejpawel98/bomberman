@@ -16,6 +16,6 @@ void loop()
     }
     gb.display.clear();
 
-    gb.display.drawImage(0, 0, background);
+    gb.display.drawImage(0, 0, sprite::background);
     playerMove();
 }

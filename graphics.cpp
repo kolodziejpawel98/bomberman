@@ -1,9 +1,9 @@
 #include "graphics.hpp"
 
 // Image characterWalkAnimation(characterWalkAnimationCode);
-Image background(backgroundCode);
-Image animationIdle(animationIdleCode);
-Image animationWalkDown(animationWalkDownCode);
-Image animationWalkLeft(animationWalkLeftCode);
-Image animationWalkRight(animationWalkRightCode);
-Image animationWalkUp(animationWalkUpCode);
+Image sprite::background(sprite::backgroundCode);
+Image sprite::animationIdle(sprite::animationIdleCode);
+Image sprite::animationWalkDown(sprite::animationWalkDownCode);
+Image sprite::animationWalkLeft(sprite::animationWalkLeftCode);
+Image sprite::animationWalkRight(sprite::animationWalkRightCode);
+Image sprite::animationWalkUp(sprite::animationWalkUpCode);
