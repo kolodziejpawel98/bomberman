@@ -1,6 +1,7 @@
 #include <Gamebuino-Meta.h>
 #include "player.hpp"
 #include "graphics.hpp"
+#include "debug_framework.hpp"
 
 void setup()
 {
@@ -16,6 +17,7 @@ void loop()
     }
     gb.display.clear();
 
-    gb.display.drawImage(0, 0, sprite::background);
-    playerMove();
+    // gb.display.drawImage(0, 0, sprite::playgroundBackground);
+    // playerMove();
+    debugFramework(playground::rocks[0].coordinates.first);
 }

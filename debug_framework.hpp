@@ -10,14 +10,16 @@
 #include <Arduino.h>
 #include <string>
 
-void debugFramework(String text, int textPosX = 50, int textPosY = 50)
+void debugFramework(String text, int textPosX = 50, int textPosY = 50, int fontSize = 1)
 {
-    gb.display.setCursor(50, 50);
+    gb.display.setFontSize(fontSize);
+    gb.display.setCursor(textPosX, textPosY);
     gb.display.println(text);
 }
 
-void debugFramework(int number, int textPosX = 50, int textPosY = 50)
+void debugFramework(int number, int textPosX = 50, int textPosY = 50, int fontSize = 1)
 {
-    gb.display.setCursor(50, 50);
+    gb.display.setFontSize(fontSize);
+    gb.display.setCursor(textPosX, textPosY);
     gb.display.println(number);
 }
