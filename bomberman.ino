@@ -18,6 +18,28 @@ void loop()
     gb.display.clear();
 
     // gb.display.drawImage(0, 0, sprite::playgroundBackground);
-    // playerMove();
-    debugFramework(playground::rocks[0].coordinates.first);
+    playerMove();
+    // playground::rocks[0].drawPlacehodler();
+
+    playground::collider.drawBlockingElement(12, 12, 2, 20);
+    playground::collider.drawBlockingElement(12, 12, 20, 2);
+    playground::collider.drawInteractiveElement(20, 20, 5, 5);
+
+    // gb.display.setColor(WHITE);
+    // gb.display.fillRect(heroMapCoordinates::x, heroMapCoordinates::y, heroMapCoordinates::width, heroMapCoordinates::height);
+    if (playground::collider.isInteractiveElementCollided(
+            playerX,
+            playerY,
+            16,
+            16))
+    {
+        debugFramework("XDDDDDDDD");
+        // gb.display.setColor(BLACK);
+        // gb.display.fillRect(0, 0, screenDimension::lowResWidth, screenDimension::lowResHeight);
+        // menu.display();
+    }
+    else
+    {
+        debugFramework("nope");
+    }
 }

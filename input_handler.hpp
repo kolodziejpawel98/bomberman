@@ -46,7 +46,14 @@ void buttonListener()
 {
     if (gb.buttons.repeat(BUTTON_LEFT, 0))
     {
-        moveLeft();
+        if (!playground::collider.isBlockingElementCollided(
+                playerX,
+                playerY,
+                16,
+                16))
+        {
+            moveLeft();
+        }
     }
     else if (gb.buttons.repeat(BUTTON_RIGHT, 0))
     {

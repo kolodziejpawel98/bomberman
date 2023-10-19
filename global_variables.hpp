@@ -10,6 +10,7 @@
 #include <Arduino.h>
 #include <vector>
 #include <utility>
+#include "collider.hpp"
 
 const uint8_t SCREEN_WIDTH = 2 * 80;
 const uint8_t SCREEN_HEIGHT = 2 * 64;
@@ -22,6 +23,8 @@ float playerSpeedY = 0;
 
 namespace playground
 {
+    Collider collider;
+
     struct Rock
     {
         std::pair<unsigned short, unsigned short> coordinates; // top-left point of rock
@@ -34,6 +37,8 @@ namespace playground
 
         void drawPlacehodler()
         {
+            gb.display.setColor(RED);
+            gb.display.fillRect(coordinates.first, coordinates.second, width, height);
         }
     };
     std::vector<Rock> rocks = {

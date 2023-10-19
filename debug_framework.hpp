@@ -23,3 +23,5 @@ void debugFramework(int number, int textPosX = 50, int textPosY = 50, int fontSi
     gb.display.setCursor(textPosX, textPosY);
     gb.display.println(number);
 }
+
+// zrobic wersje z pair template T
