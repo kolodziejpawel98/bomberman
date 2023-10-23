@@ -15,12 +15,13 @@ void Collider::drawBlockingElement(int x, int y, int width, int height)
 
 void Collider::drawInteractiveElement(int x, int y, int width, int height)
 {
-    gb.display.setColor(RED);
+    gb.display.setColor(LIGHTBLUE);
     gb.display.fillRect(x, y, width, height);
     if (!isInteractiveElementExist(x, y, width, height))
     {
         addInteractiveElement(x, y, width, height);
     }
+    gb.display.setColor(RED);
 }
 
 void Collider::addBlockingElement(int x, int y, int width, int height)

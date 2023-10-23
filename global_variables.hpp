@@ -22,7 +22,7 @@ int playerSpeed = 3;
 int playerSpeedX = 0;
 int playerSpeedY = 0;
 
-std::vector<std::pair<int, int>> playerContactPoints = {{playerX, playerY}, {playerX + 16, playerY}, {playerX, playerY + 16}, {playerX + 16, playerY + 16}};
+std::vector<std::pair<int, int>> playerContactPoints = {{playerX + 3, playerY + 2}, {playerX + 16, playerY}, {playerX, playerY + 16}, {playerX + 16, playerY + 16}}; // w [0] przesuniecie zeby bralo fragment ciala jako collidder
 
 void updatePlayerContactPoints()
 {
