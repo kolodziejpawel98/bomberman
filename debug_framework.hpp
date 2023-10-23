@@ -24,4 +24,18 @@ void debugFramework(int number, int textPosX = 50, int textPosY = 50, int fontSi
     gb.display.println(number);
 }
 
+void debugFramework(std::vector<std::pair<int, int>> &points, int textPosX = 50, int textPosY = 50, int fontSize = 1)
+{
+    int newLineStep = 0;
+    gb.display.setFontSize(fontSize);
+    gb.display.setCursor(textPosX, textPosY);
+
+    for (const auto &point : points)
+    {
+        debugFramework(point.first, textPosX, textPosY + newLineStep);
+        debugFramework(point.second, textPosX + 12, textPosY + newLineStep);
+        newLineStep += 7;
+    }
+}
+
 // zrobic wersje z pair template T

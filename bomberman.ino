@@ -21,9 +21,9 @@ void loop()
     playerMove();
     // playground::rocks[0].drawPlacehodler();
 
-    playground::collider.drawBlockingElement(12, 12, 2, 20);
-    playground::collider.drawBlockingElement(12, 12, 20, 2);
-    playground::collider.drawInteractiveElement(20, 20, 5, 5);
+    playground::collider.drawBlockingElement(62, 42, 2, 20);
+    playground::collider.drawBlockingElement(62, 72, 20, 2);
+    playground::collider.drawInteractiveElement(80, 80, 5, 5);
 
     // gb.display.setColor(WHITE);
     // gb.display.fillRect(heroMapCoordinates::x, heroMapCoordinates::y, heroMapCoordinates::width, heroMapCoordinates::height);
@@ -42,4 +42,8 @@ void loop()
     {
         debugFramework("nope");
     }
+
+    // debugFramework(playerX, 90, 90);
+    // debugFramework(playerY, 95, 95);
+    debugFramework(playerContactPoints, 95, 95);
 }

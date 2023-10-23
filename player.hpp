@@ -19,4 +19,5 @@ void playerMove()
     buttonListener();
     playerX += playerSpeedX;
     playerY += playerSpeedY;
+    updatePlayerContactPoints();
 }

@@ -10,16 +10,27 @@
 #include <Arduino.h>
 #include <vector>
 #include <utility>
+#include <unordered_set>
 #include "collider.hpp"
 
 const uint8_t SCREEN_WIDTH = 2 * 80;
 const uint8_t SCREEN_HEIGHT = 2 * 64;
 
-float playerX = 10;
-float playerY = 10;
-float playerSpeed = 3;
-float playerSpeedX = 0;
-float playerSpeedY = 0;
+int playerX = 0; // top-left corner
+int playerY = 0; // top-left corner
+int playerSpeed = 3;
+int playerSpeedX = 0;
+int playerSpeedY = 0;
+
+std::vector<std::pair<int, int>> playerContactPoints = {{playerX, playerY}, {playerX + 16, playerY}, {playerX, playerY + 16}, {playerX + 16, playerY + 16}};
+
+void updatePlayerContactPoints()
+{
+    playerContactPoints[0] = std::make_pair(playerX, playerY);
+    playerContactPoints[1] = std::make_pair(playerX + 16, playerY);
+    playerContactPoints[2] = std::make_pair(playerX, playerY + 16);
+    playerContactPoints[3] = std::make_pair(playerX + 16, playerY + 16);
+}
 
 namespace playground
 {
