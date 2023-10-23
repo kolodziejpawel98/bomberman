@@ -9,12 +9,10 @@
 #undef min
 #include <utility>
 #include <string>
-// #include <set>
 #include <memory>
 #include <vector>
 #include <algorithm>
-
-extern String colliderDebugLine;
+#include "global_variables.hpp"
 
 struct Coordinates
 {
@@ -37,19 +35,17 @@ struct Coordinates
     }
 };
 
-class Collider
+namespace collider
 {
-public:
     void drawBlockingElement(int x, int y, int width, int height);
     void drawInteractiveElement(int x, int y, int width, int height);
-    void addInteractiveElement(int x, int y, int width, int height);
-    void addBlockingElement(int x, int y, int width, int height);
-    bool isBlockingElementCollided(int playerX, int playerY, int playerWidth, int playerHeight);
-    bool isInteractiveElementCollided(int playerX, int playerY, int playerWidth, int playerHeight);
+    void saveInteractiveElement(int x, int y, int width, int height);
+    void saveBlockingElement(int x, int y, int width, int height);
+    bool isBlockingElementColliding(int playerX, int playerY, int playerWidth, int playerHeight);
+    bool isInteractiveElementColliding(int playerX, int playerY, int playerWidth, int playerHeight);
     bool isBlockingElementExist(int x, int y, int width, int height);
     bool isInteractiveElementExist(int x, int y, int width, int height);
 
-private:
-    std::vector<std::shared_ptr<Coordinates>> blockingElements;
-    std::vector<std::shared_ptr<Coordinates>> interactiveElements;
-};
+    extern std::vector<std::shared_ptr<Coordinates>> blockingElements;
+    extern std::vector<std::shared_ptr<Coordinates>> interactiveElements;
+}
