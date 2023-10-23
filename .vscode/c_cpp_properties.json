@@ -41,7 +41,9 @@
                 "C:\\Users\\Paweł\\AppData\\Local\\arduino15\\packages\\arduino\\tools\\CMSIS-Atmel\\1.2.0\\CMSIS\\Device\\ATMEL\\",
                 "C:\\Users\\Paweł\\AppData\\Local\\Temp\\arduino\\sketches\\B94045337F652054B8AA50D34536768B",
                 "C:\\Users\\Paweł\\AppData\\Local\\arduino15\\packages\\gamebuino\\hardware\\samd\\1.2.2\\cores\\arduino",
-                "C:\\Users\\Paweł\\AppData\\Local\\arduino15\\packages\\gamebuino\\hardware\\samd\\1.2.2\\variants\\gamebuino_meta"
+                "C:\\Users\\Paweł\\AppData\\Local\\arduino15\\packages\\gamebuino\\hardware\\samd\\1.2.2\\variants\\gamebuino_meta",
+                "C:\\Users\\Paweł\\Documents\\Arduino\\libraries\\Gamebuino_META\\src",
+                "C:\\Users\\Paweł\\AppData\\Local\\arduino15\\packages\\gamebuino\\hardware\\samd\\1.2.2\\libraries\\SPI"
             ],
             "forcedInclude": [
                 "C:\\Users\\Paweł\\AppData\\Local\\arduino15\\packages\\gamebuino\\hardware\\samd\\1.2.2\\cores\\arduino\\Arduino.h"

@@ -1,7 +1,11 @@
 #include <Gamebuino-Meta.h>
-#include "player.hpp"
 #include "graphics.hpp"
 #include "debug_framework.hpp"
+#include "global_variables.hpp"
+#include "input_handler.hpp"
+#include "playground.hpp"
+
+Player player;
 
 void setup()
 {
@@ -17,66 +21,24 @@ void loop()
     }
     gb.display.clear();
 
-    // gb.display.drawImage(0, 0, sprite::playgroundBackground);
+    gb.display.drawImage(0, 0, sprite::playgroundBackground);
     playerMove();
-    // playground::rocks[0].drawPlacehodler();
+    playground::rocks[0].drawPlacehodler();
 
-    playground::collider.drawBlockingElement(62, 42, 2, 20);
-    playground::collider.drawBlockingElement(62, 72, 20, 2);
-    playground::collider.drawInteractiveElement(30, 30, 1, 1);
+    // collider::drawBlockingElement(62, 42, 2, 20);
+    // collider::drawBlockingElement(62, 72, 20, 2);
+    collider::drawInteractiveElement(30, 30, 1, 1);
 
-    // gb.display.setColor(WHITE);
-    // gb.display.fillRect(heroMapCoordinates::x, heroMapCoordinates::y, heroMapCoordinates::width, heroMapCoordinates::height);
-    // if (playground::collider.isInteractiveElementCollided(
-    //         playerContactPoints[0].first,
-    //         playerContactPoints[0].second,
-    //         16,
-    //         16) or
-    //     playground::collider.isInteractiveElementCollided(
-    //         playerContactPoints[1].first,
-    //         playerContactPoints[1].second,
-    //         16,
-    //         16) or
-    //     playground::collider.isInteractiveElementCollided(
-    //         playerContactPoints[2].first,
-    //         playerContactPoints[2].second,
-    //         16,
-    //         16) or
-    //     playground::collider.isInteractiveElementCollided(
-    //         playerContactPoints[3].first,
-    //         playerContactPoints[3].second,
-    //         16,
-    //         16))
-    // {
-    //     debugFramework("XDDDDDDDD");
-    //     debugFramework("punkty stykowe: ", 5, 5);
-    //     debugFramework()
-    //     // gb.display.setColor(BLACK);
-    //     // gb.display.fillRect(0, 0, screenDimension::lowResWidth, screenDimension::lowResHeight);
-    //     // menu.display();
-    // }
-    // else
-    // {
-    //     debugFramework("nope");
-    // }
-
-    if (playground::collider.isInteractiveElementCollided(
-            playerContactPoints[0].first,
-            playerContactPoints[0].second,
-            10,
-            14))
+    if (collider::isInteractiveElementColliding(
+            player.playerX,
+            player.playerY,
+            16,
+            16))
     {
-        debugFramework("XDDDDDDDD");
-        debugFramework("punkty stykowe: ", 5, 5);
-        debugFramework(playerContactPoints[0].first, 5, 12);
-        debugFramework(playerContactPoints[0].second, 17, 12);
+        printTextAndPair("punkty stykowe: ", player.playerX, player.playerY, 5, 5);
     }
     else
     {
-        debugFramework("nope");
+        printText("nope");
     }
-
-    // debugFramework(playerX, 90, 90);
-    // debugFramework(playerY, 95, 95);
-    debugFramework(playerContactPoints, 95, 95);
 }

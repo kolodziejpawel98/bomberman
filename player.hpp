@@ -9,15 +9,23 @@
 #undef min
 #include <Arduino.h>
 #include <algorithm>
-#include "input_handler.hpp"
-#include "global_variables.hpp"
+#include <utility>
 
-void playerMove()
+class Player
 {
-    playerSpeedX = 0;
-    playerSpeedY = 0;
-    buttonListener();
-    playerX += playerSpeedX;
-    playerY += playerSpeedY;
-    updatePlayerContactPoints();
-}
+public:
+    int playerX;
+    int playerY;
+    int playerSpeed;
+    int playerSpeedX;
+    int playerSpeedY;
+
+    Player()
+    {
+        playerX = 0;
+        playerY = 0;
+        playerSpeed = 3;
+        playerSpeedX = 0;
+        playerSpeedY = 0;
+    }
+};

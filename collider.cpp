@@ -1,44 +1,45 @@
 #include <Gamebuino-Meta.h>
 #include "collider.hpp"
 
-String colliderDebugLine = "";
+std::vector<std::shared_ptr<Coordinate>> collider::blockingElements; // dodanie tego plus extern w .hpp rozwiazaniem errora multiple definition of blockingElements
+std::vector<std::shared_ptr<Coordinate>> collider::interactiveElements;
 
-void Collider::drawBlockingElement(int x, int y, int width, int height)
+void collider::drawBlockingElement(int x, int y, int width, int height)
 {
-    gb.display.setColor(BLUE);
+    gb.display.setColor(DARKGRAY);
     gb.display.fillRect(x, y, width, height);
+
     if (!isBlockingElementExist(x, y, width, height))
     {
-        addBlockingElement(x, y, width, height);
+        saveBlockingElement(x, y, width, height);
     }
 }
 
-void Collider::drawInteractiveElement(int x, int y, int width, int height)
+void collider::drawInteractiveElement(int x, int y, int width, int height)
 {
-    gb.display.setColor(LIGHTBLUE);
+    gb.display.setColor(LIGHTGREEN);
     gb.display.fillRect(x, y, width, height);
+
     if (!isInteractiveElementExist(x, y, width, height))
     {
-        addInteractiveElement(x, y, width, height);
+        saveInteractiveElement(x, y, width, height);
     }
-    gb.display.setColor(RED);
 }
 
-void Collider::addBlockingElement(int x, int y, int width, int height)
+void collider::saveBlockingElement(int x, int y, int width, int height)
 {
-    blockingElements.push_back(std::make_shared<Coordinates>(x, y, width, height));
+    blockingElements.push_back(std::make_shared<Coordinate>(x, y, width, height));
 }
 
-void Collider::addInteractiveElement(int x, int y, int width, int height)
+void collider::saveInteractiveElement(int x, int y, int width, int height)
 {
-    interactiveElements.push_back(std::make_shared<Coordinates>(x, y, width, height));
+    interactiveElements.push_back(std::make_shared<Coordinate>(x, y, width, height));
 }
 
-bool Collider::isBlockingElementCollided(int playerX, int playerY, int playerWidth, int playerHeight)
+bool collider::isBlockingElementColliding(int playerX, int playerY, int playerWidth, int playerHeight)
 {
     for (auto it : blockingElements)
     {
-        // colliderDebugLine = static_cast<String>(it->x);
         if (gb.collide.rectRect(playerX, playerY, playerWidth, playerHeight, it->x, it->y, it->width, it->height))
         {
             return true;
@@ -47,7 +48,7 @@ bool Collider::isBlockingElementCollided(int playerX, int playerY, int playerWid
     return false;
 }
 
-bool Collider::isInteractiveElementCollided(int playerX, int playerY, int playerWidth, int playerHeight)
+bool collider::isInteractiveElementColliding(int playerX, int playerY, int playerWidth, int playerHeight)
 {
     for (auto it : interactiveElements)
     {
@@ -59,12 +60,12 @@ bool Collider::isInteractiveElementCollided(int playerX, int playerY, int player
     return false;
 }
 
-bool Collider::isBlockingElementExist(int x, int y, int width, int height)
+bool collider::isBlockingElementExist(int x, int y, int width, int height)
 {
     auto iterator = std::find_if(
         blockingElements.begin(),
         blockingElements.end(),
-        [&x, &y, &width, &height](std::shared_ptr<Coordinates> element)
+        [&x, &y, &width, &height](std::shared_ptr<Coordinate> element)
         {
             return element->isCoordinateExist(x, y, width, height);
         });
@@ -79,12 +80,12 @@ bool Collider::isBlockingElementExist(int x, int y, int width, int height)
     }
 }
 
-bool Collider::isInteractiveElementExist(int x, int y, int width, int height)
+bool collider::isInteractiveElementExist(int x, int y, int width, int height)
 {
     auto iterator = std::find_if(
         interactiveElements.begin(),
         interactiveElements.end(),
-        [&x, &y, &width, &height](std::shared_ptr<Coordinates> element)
+        [&x, &y, &width, &height](std::shared_ptr<Coordinate> element)
         {
             return element->isCoordinateExist(x, y, width, height);
         });
