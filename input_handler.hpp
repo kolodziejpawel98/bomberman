@@ -13,42 +13,38 @@
 
 void drawSquare()
 {
-    gb.display.setColor(YELLOW);
-    gb.display.fillRect(player.playerX, player.playerY, 16, 16);
+    // gb.display.setColor(YELLOW);
+    // gb.display.fillRect(player.colliderX, player.colliderY, player.colliderWidht, player.colliderHeight);
 }
 
 void moveUp()
 {
-    gb.display.drawImage(player.playerX, player.playerY, sprite::animationWalkUp);
-    player.playerSpeedY = -player.playerSpeed;
-    // drawSquare();
+    player.stepLengthY = -player.stepLength;
+    drawSquare();
 }
 
 void moveDown()
 {
-    gb.display.drawImage(player.playerX, player.playerY, sprite::animationWalkDown);
-    player.playerSpeedY = player.playerSpeed;
-    // drawSquare();
+    player.stepLengthY = player.stepLength;
+    drawSquare();
 }
 
 void moveLeft()
 {
-    gb.display.drawImage(player.playerX, player.playerY, sprite::animationWalkLeft);
-    player.playerSpeedX = -player.playerSpeed;
-    // drawSquare();
+    player.stepLengthX = -player.stepLength;
+    drawSquare();
 }
 
 void moveRight()
 {
-    gb.display.drawImage(player.playerX, player.playerY, sprite::animationWalkRight);
-    player.playerSpeedX = player.playerSpeed;
-    // drawSquare();
+    player.stepLengthX = player.stepLength;
+    drawSquare();
 }
 
 void idle()
 {
-    gb.display.drawImage(player.playerX, player.playerY, sprite::animationIdle);
-    // drawSquare();
+    gb.display.drawImage(player.x, player.y, sprite::animationIdle);
+    drawSquare();
 }
 
 void buttonListener()
@@ -56,46 +52,50 @@ void buttonListener()
     if (gb.buttons.repeat(BUTTON_LEFT, 0))
     {
         if (!collider::isBlockingElementColliding(
-                player.playerX,
-                player.playerY,
-                16,
-                16))
+                player.colliderX - player.stepLength,
+                player.colliderY,
+                player.colliderWidht,
+                player.colliderHeight))
         {
             moveLeft();
         }
+        gb.display.drawImage(player.x, player.y, sprite::animationWalkLeft);
     }
     else if (gb.buttons.repeat(BUTTON_RIGHT, 0))
     {
         if (!collider::isBlockingElementColliding(
-                player.playerX,
-                player.playerY,
-                16,
-                16))
+                player.colliderX + player.stepLength,
+                player.colliderY,
+                player.colliderWidht,
+                player.colliderHeight))
         {
             moveRight();
         }
+        gb.display.drawImage(player.x, player.y, sprite::animationWalkRight);
     }
     else if (gb.buttons.repeat(BUTTON_UP, 0))
     {
         if (!collider::isBlockingElementColliding(
-                player.playerX,
-                player.playerY,
-                16,
-                16))
+                player.colliderX,
+                player.colliderY - player.stepLength,
+                player.colliderWidht,
+                player.colliderHeight))
         {
             moveUp();
         }
+        gb.display.drawImage(player.x, player.y, sprite::animationWalkUp);
     }
     else if (gb.buttons.repeat(BUTTON_DOWN, 0))
     {
         if (!collider::isBlockingElementColliding(
-                player.playerX,
-                player.playerY,
-                16,
-                16))
+                player.colliderX,
+                player.colliderY + player.stepLength,
+                player.colliderWidht,
+                player.colliderHeight))
         {
             moveDown();
         }
+        gb.display.drawImage(player.x, player.y, sprite::animationWalkDown);
     }
     else
     {
@@ -105,9 +105,10 @@ void buttonListener()
 
 void playerMove()
 {
-    player.playerSpeedX = 0;
-    player.playerSpeedY = 0;
+    player.stepLengthX = 0;
+    player.stepLengthY = 0;
     buttonListener();
-    player.playerX += player.playerSpeedX;
-    player.playerY += player.playerSpeedY;
+    player.x += player.stepLengthX;
+    player.y += player.stepLengthY;
+    player.updateCollider();
 }

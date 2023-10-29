@@ -12,6 +12,15 @@ void setup()
     gb.begin();
     gb.setFrameRate(60);
     gb.display.setPalette(PALETTE);
+
+    for (const auto &rock : playground::rocks)
+    {
+        collider::drawBlockingElement(rock.coordinate.x, rock.coordinate.y, rock.coordinate.width, rock.coordinate.height);
+    }
+    for (const auto &border : playground::borders)
+    {
+        collider::drawBlockingElement(border.x, border.y, border.width, border.height);
+    }
 }
 
 void loop()
@@ -22,23 +31,25 @@ void loop()
     gb.display.clear();
 
     gb.display.drawImage(0, 0, sprite::playgroundBackground);
-    playerMove();
-    playground::rocks[0].drawPlacehodler();
+
+    // playground::rocks[0].drawPlacehodler();
 
     // collider::drawBlockingElement(62, 42, 2, 20);
     // collider::drawBlockingElement(62, 72, 20, 2);
-    collider::drawInteractiveElement(30, 30, 1, 1);
+    // collider::drawInteractiveElement(30, 30, 1, 1);
 
-    if (collider::isInteractiveElementColliding(
-            player.playerX,
-            player.playerY,
-            16,
-            16))
-    {
-        printTextAndPair("punkty stykowe: ", player.playerX, player.playerY, 5, 5);
-    }
-    else
-    {
-        printText("nope");
-    }
+    playerMove();
+
+    // if (collider::isInteractiveElementColliding(
+    //         player.colliderX,
+    //         player.colliderY,
+    //         player.colliderWidht,
+    //         player.colliderHeight))
+    // {
+    //     printText("!!!styk!!!");
+    // }
+    // else
+    // {
+    //     printText("nope");
+    // }
 }

@@ -36,7 +36,7 @@ void printTextAndPair(String text, int x, int y, int textPosX = 50, int textPosY
 {
     gb.display.setFontSize(fontSize);
     printText(text, textPosX, textPosY);
-    printNumber(x, textPosX, textPosY + 7);
+    printNumber(x, textPosX, textPosY + 7); // why + 7 ?
     printNumber(y, textPosX + 12, textPosY + 7);
 }
 

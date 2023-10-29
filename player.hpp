@@ -14,18 +14,28 @@
 class Player
 {
 public:
-    int playerX;
-    int playerY;
-    int playerSpeed;
-    int playerSpeedX;
-    int playerSpeedY;
+    int x; // remove player from variable names
+    int y;
+    int stepLength;
+    int stepLengthX;
+    int stepLengthY;
+    int colliderX, colliderY, colliderWidht, colliderHeight;
 
     Player()
     {
-        playerX = 0;
-        playerY = 0;
-        playerSpeed = 3;
-        playerSpeedX = 0;
-        playerSpeedY = 0;
+        x = 24;
+        y = 25;
+        stepLength = 3;
+        stepLengthX = 0;
+        stepLengthY = 0;
+        colliderX, colliderY = 0;
+        colliderWidht = 8;
+        colliderHeight = 6;
+    }
+
+    void updateCollider()
+    {
+        colliderX = x + 4;
+        colliderY = y + 10;
     }
 };

@@ -21,8 +21,8 @@ namespace collider
     void drawInteractiveElement(int x, int y, int width, int height);
     void saveInteractiveElement(int x, int y, int width, int height);
     void saveBlockingElement(int x, int y, int width, int height);
-    bool isBlockingElementColliding(int playerX, int playerY, int playerWidth, int playerHeight);
-    bool isInteractiveElementColliding(int playerX, int playerY, int playerWidth, int playerHeight);
+    bool isBlockingElementColliding(int x, int y, int playerWidth, int playerHeight);
+    bool isInteractiveElementColliding(int x, int y, int playerWidth, int playerHeight);
     bool isBlockingElementExist(int x, int y, int width, int height);
     bool isInteractiveElementExist(int x, int y, int width, int height);
 

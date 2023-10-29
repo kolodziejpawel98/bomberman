@@ -36,11 +36,11 @@ void collider::saveInteractiveElement(int x, int y, int width, int height)
     interactiveElements.push_back(std::make_shared<Coordinate>(x, y, width, height));
 }
 
-bool collider::isBlockingElementColliding(int playerX, int playerY, int playerWidth, int playerHeight)
+bool collider::isBlockingElementColliding(int x, int y, int playerWidth, int playerHeight)
 {
     for (auto it : blockingElements)
     {
-        if (gb.collide.rectRect(playerX, playerY, playerWidth, playerHeight, it->x, it->y, it->width, it->height))
+        if (gb.collide.rectRect(x, y, playerWidth, playerHeight, it->x, it->y, it->width, it->height))
         {
             return true;
         }
@@ -48,11 +48,11 @@ bool collider::isBlockingElementColliding(int playerX, int playerY, int playerWi
     return false;
 }
 
-bool collider::isInteractiveElementColliding(int playerX, int playerY, int playerWidth, int playerHeight)
+bool collider::isInteractiveElementColliding(int x, int y, int playerWidth, int playerHeight)
 {
     for (auto it : interactiveElements)
     {
-        if (gb.collide.rectRect(playerX, playerY, playerWidth, playerHeight, it->x, it->y, it->width, it->height))
+        if (gb.collide.rectRect(x, y, playerWidth, playerHeight, it->x, it->y, it->width, it->height))
         {
             return true;
         }
