@@ -40,6 +40,11 @@ void loop()
 
     playerMove();
 
+    if (playground::bomb != nullptr)
+    {
+        playground::bomb->drawBomb();
+    }
+
     // if (collider::isInteractiveElementColliding(
     //         player.colliderX,
     //         player.colliderY,

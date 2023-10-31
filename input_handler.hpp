@@ -8,8 +8,10 @@
 #undef max
 #undef min
 #include <Arduino.h>
+#include <memory>
 #include "global_variables.hpp"
 #include "collider.hpp"
+#include "playground.hpp"
 
 void drawSquare()
 {
@@ -100,6 +102,11 @@ void buttonListener()
     else
     {
         idle();
+    }
+
+    if (gb.buttons.pressed(BUTTON_A))
+    {
+        playground::bomb = std::make_shared<playground::Bomb>(player.x, player.y);
     }
 }
 

@@ -27,6 +27,21 @@ namespace playground
         }
     };
 
+    struct Bomb
+    {
+        Coordinate coordinate;
+        Bomb(int x, int y) : coordinate(x, y) {}
+
+        void drawBomb()
+        {
+            gb.display.drawImage(coordinate.x, coordinate.y, sprite::bomb);
+            drawDot(coordinate.x, coordinate.y);
+            // collider::drawBlockingElement(coordinate.x, coordinate.y, 1, 1);
+        }
+    };
+
+    std::shared_ptr<Bomb> bomb = nullptr;
+
     std::vector<Rock> rocks = {
         Rock(8, 9),
         Rock(40, 9),
