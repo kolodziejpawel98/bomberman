@@ -32,31 +32,14 @@ void loop()
 
     gb.display.drawImage(0, 0, sprite::playgroundBackground);
 
-    // playground::rocks[0].drawPlacehodler();
-
-    // collider::drawBlockingElement(62, 42, 2, 20);
-    // collider::drawBlockingElement(62, 72, 20, 2);
-    // collider::drawInteractiveElement(30, 30, 1, 1);
-
     playerMove();
 
     if (playground::bomb != nullptr)
     {
-        playground::bomb->drawBomb();
+        playground::bomb->drawBomb(playground::walkableCells[playground::findNearestCell(player.x + 8, player.y + 8)].centralPoint.first, playground::walkableCells[playground::findNearestCell(player.x + 8, player.y + 8)].centralPoint.second);
         // collider::drawInteractiveElement(playground::bomb->coordinate.x, playground::bomb->coordinate.y, 16, 16);
         // printNumber(collider::isInteractiveElementColliding(playground::bomb->coordinate.x, playground::bomb->coordinate.y, player.x, player.y));
     }
-    printNumber(playground::findNearestCell(player.x + 8, player.y + 8));
-    // if (collider::isInteractiveElementColliding(
-    //         player.colliderX,
-    //         player.colliderY,
-    //         player.colliderWidht,
-    //         player.colliderHeight))
-    // {
-    //     printText("!!!styk!!!");
-    // }
-    // else
-    // {
-    //     printText("nope");
-    // }
+    // printNumber(playground::findNearestCell(player.x + 8, player.y + 8));
+    // drawDot(playground::walkableCells[playground::findNearestCell(player.x + 8, player.y + 8)].centralPoint.first, playground::walkableCells[playground::findNearestCell(player.x + 8, player.y + 8)].centralPoint.second);
 }

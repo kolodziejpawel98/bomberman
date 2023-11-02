@@ -55,9 +55,9 @@ namespace playground
         Coordinate coordinate;
         Bomb(int x, int y) : coordinate(x, y) {}
 
-        void drawBomb()
+        void drawBomb(int x, int y)
         {
-            gb.display.drawImage(coordinate.x, coordinate.y, sprite::bomb);
+            gb.display.drawImage(x - 8, y - 8, sprite::bomb);
         }
     };
 
