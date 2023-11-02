@@ -17,7 +17,7 @@ void collider::drawBlockingElement(int x, int y, int width, int height)
 
 void collider::drawInteractiveElement(int x, int y, int width, int height)
 {
-    gb.display.setColor(LIGHTGREEN);
+    gb.display.setColor(RED);
     gb.display.fillRect(x, y, width, height);
 
     if (!isInteractiveElementExist(x, y, width, height))
