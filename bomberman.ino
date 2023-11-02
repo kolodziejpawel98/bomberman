@@ -43,8 +43,10 @@ void loop()
     if (playground::bomb != nullptr)
     {
         playground::bomb->drawBomb();
+        // collider::drawInteractiveElement(playground::bomb->coordinate.x, playground::bomb->coordinate.y, 16, 16);
+        // printNumber(collider::isInteractiveElementColliding(playground::bomb->coordinate.x, playground::bomb->coordinate.y, player.x, player.y));
     }
-
+    printNumber(playground::findNearestCell(player.x + 8, player.y + 8));
     // if (collider::isInteractiveElementColliding(
     //         player.colliderX,
     //         player.colliderY,

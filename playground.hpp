@@ -41,6 +41,13 @@ namespace playground
             gb.display.setColor(RED);
             gb.display.fillRect(coordinate.x, coordinate.y, coordinate.width, coordinate.height);
         }
+
+        float getDistanceToCentral(int playerX, int playerY)
+        {
+            int dx = centralPoint.first - playerX;
+            int dy = centralPoint.second - playerY;
+            return std::sqrt(dx * dx + dy * dy);
+        }
     };
 
     struct Bomb
@@ -139,10 +146,20 @@ namespace playground
         Cell(88, 105, std::make_pair(96, 113)),
         Cell(120, 105, std::make_pair(128, 113))};
 
-    // void findNearestCell(int playerX, int playerY)
-    // {
-    //     auto it = std::find_if(walkableCells.begin(), walkableCells.end(), []()
-    //                            { std::pair<int, int> nearestPair = {100, 100};
-    //                            if() });
-    // }
+    int findNearestCell(int playerX, int playerY)
+    {
+        float nearestDistance = 999.0;
+        int index = 0;
+        int xd = 0;
+        for (auto &cell : walkableCells)
+        {
+            if (cell.getDistanceToCentral(playerX, playerY) < nearestDistance)
+            {
+                nearestDistance = cell.getDistanceToCentral(playerX, playerY);
+                xd = index;
+            }
+            index++;
+        }
+        return xd;
+    }
 }
