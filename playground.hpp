@@ -30,8 +30,11 @@ namespace playground
     struct Cell
     {
         Coordinate coordinate;
+        std::pair<int, int> centralPoint;
 
-        Cell(int x, int y, int width = 16, int height = 16) : coordinate(x, y, width, height) {}
+        Cell(int x, int y, const std::pair<int, int> &centralPoint, int width = 16, int height = 16) : coordinate(x, y, width, height), centralPoint(centralPoint)
+        {
+        }
 
         void drawPlacehodler()
         {
@@ -48,8 +51,6 @@ namespace playground
         void drawBomb()
         {
             gb.display.drawImage(coordinate.x, coordinate.y, sprite::bomb);
-            drawDot(coordinate.x, coordinate.y);
-            // collider::drawBlockingElement(coordinate.x, coordinate.y, 1, 1);
         }
     };
 
@@ -88,54 +89,60 @@ namespace playground
 
     std::vector<Cell> walkableCells = {
 
-        Cell(24, 9), //?????? shared_ptr???
-        Cell(56, 9),
-        Cell(88, 9),
-        Cell(120, 9),
+        Cell(24, 9, std::make_pair(32, 17)),
+        Cell(56, 9, std::make_pair(64, 17)),
+        Cell(88, 9, std::make_pair(96, 17)),
+        Cell(120, 9, std::make_pair(128, 17)),
 
-        Cell(8, 25),
-        Cell(24, 25),
-        Cell(40, 25),
-        Cell(56, 25),
-        Cell(72, 25),
-        Cell(88, 25),
-        Cell(104, 25),
-        Cell(120, 25),
-        Cell(136, 25),
+        Cell(8, 25, std::make_pair(16, 33)),
+        Cell(24, 25, std::make_pair(32, 33)),
+        Cell(40, 25, std::make_pair(48, 33)),
+        Cell(56, 25, std::make_pair(64, 33)),
+        Cell(72, 25, std::make_pair(80, 33)),
+        Cell(88, 25, std::make_pair(96, 33)),
+        Cell(104, 25, std::make_pair(112, 33)),
+        Cell(120, 25, std::make_pair(128, 33)),
+        Cell(136, 25, std::make_pair(144, 33)),
 
-        Cell(24, 41),
-        Cell(56, 41),
-        Cell(88, 41),
-        Cell(120, 41),
+        Cell(24, 41, std::make_pair(32, 49)),
+        Cell(56, 41, std::make_pair(64, 49)),
+        Cell(88, 41, std::make_pair(96, 49)),
+        Cell(120, 41, std::make_pair(128, 49)),
 
-        Cell(8, 57),
-        Cell(24, 57),
-        Cell(40, 57),
-        Cell(56, 57),
-        Cell(72, 57),
-        Cell(88, 57),
-        Cell(104, 57),
-        Cell(120, 57),
-        Cell(136, 57),
+        Cell(8, 57, std::make_pair(16, 65)),
+        Cell(24, 57, std::make_pair(32, 65)),
+        Cell(40, 57, std::make_pair(48, 65)),
+        Cell(56, 57, std::make_pair(64, 65)),
+        Cell(72, 57, std::make_pair(80, 65)),
+        Cell(88, 57, std::make_pair(96, 65)),
+        Cell(104, 57, std::make_pair(112, 65)),
+        Cell(120, 57, std::make_pair(128, 65)),
+        Cell(136, 57, std::make_pair(144, 65)),
 
-        Cell(24, 73),
-        Cell(56, 73),
-        Cell(88, 73),
-        Cell(120, 73),
+        Cell(24, 73, std::make_pair(32, 81)),
+        Cell(56, 73, std::make_pair(64, 81)),
+        Cell(88, 73, std::make_pair(96, 81)),
+        Cell(120, 73, std::make_pair(128, 81)),
 
-        Cell(8, 89),
-        Cell(24, 89),
-        Cell(40, 89),
-        Cell(56, 89),
-        Cell(72, 89),
-        Cell(88, 89),
-        Cell(104, 89),
-        Cell(120, 89),
-        Cell(136, 89),
+        Cell(8, 89, std::make_pair(16, 97)),
+        Cell(24, 89, std::make_pair(32, 97)),
+        Cell(40, 89, std::make_pair(48, 97)),
+        Cell(56, 89, std::make_pair(64, 97)),
+        Cell(72, 89, std::make_pair(80, 97)),
+        Cell(88, 89, std::make_pair(96, 97)),
+        Cell(104, 89, std::make_pair(112, 97)),
+        Cell(120, 89, std::make_pair(128, 97)),
+        Cell(136, 89, std::make_pair(144, 97)),
 
-        Cell(24, 105),
-        Cell(56, 105),
-        Cell(88, 105),
-        Cell(120, 105),
-    };
+        Cell(24, 105, std::make_pair(32, 113)),
+        Cell(56, 105, std::make_pair(64, 113)),
+        Cell(88, 105, std::make_pair(96, 113)),
+        Cell(120, 105, std::make_pair(128, 113))};
+
+    // void findNearestCell(int playerX, int playerY)
+    // {
+    //     auto it = std::find_if(walkableCells.begin(), walkableCells.end(), []()
+    //                            { std::pair<int, int> nearestPair = {100, 100};
+    //                            if() });
+    // }
 }
