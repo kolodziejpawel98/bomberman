@@ -36,10 +36,14 @@ void loop()
 
     if (playground::bomb != nullptr)
     {
-        playground::bomb->drawBomb(playground::walkableCells[playground::findNearestCell(player.x + 8, player.y + 8)].centralPoint.first, playground::walkableCells[playground::findNearestCell(player.x + 8, player.y + 8)].centralPoint.second);
-        // collider::drawInteractiveElement(playground::bomb->coordinate.x, playground::bomb->coordinate.y, 16, 16);
-        // printNumber(collider::isInteractiveElementColliding(playground::bomb->coordinate.x, playground::bomb->coordinate.y, player.x, player.y));
+        static bool flag = false;
+        static int x, y;
+        if (!flag)
+        {
+            x = player.x + 8;
+            y = player.y + 8;
+            flag = true;
+        }
+        playground::bomb->drawBomb(playground::walkableCells[playground::findNearestCell(x, y)].centralPoint.first, playground::walkableCells[playground::findNearestCell(x, y)].centralPoint.second);
     }
-    // printNumber(playground::findNearestCell(player.x + 8, player.y + 8));
-    // drawDot(playground::walkableCells[playground::findNearestCell(player.x + 8, player.y + 8)].centralPoint.first, playground::walkableCells[playground::findNearestCell(player.x + 8, player.y + 8)].centralPoint.second);
 }
