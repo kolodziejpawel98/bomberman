@@ -32,7 +32,7 @@ void loop()
 
     gb.display.drawImage(0, 0, sprite::playgroundBackground);
 
-    playerMove();
+    playerMoveEngine();
 
     if (playground::bomb != nullptr)
     {
@@ -44,6 +44,6 @@ void loop()
             y = player.y + 8;
             flag = true;
         }
-        playground::bomb->drawBomb(playground::walkableCells[playground::findNearestCell(x, y)].centralPoint.first, playground::walkableCells[playground::findNearestCell(x, y)].centralPoint.second);
+        playground::bomb->drawBomb(playground::findNearestCell(x, y));
     }
 }

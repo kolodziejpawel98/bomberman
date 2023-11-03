@@ -14,7 +14,7 @@
 class Player
 {
 public:
-    int x; // remove player from variable names
+    int x;
     int y;
     int stepLength;
     int stepLengthX;

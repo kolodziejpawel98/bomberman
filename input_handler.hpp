@@ -110,7 +110,7 @@ void buttonListener()
     }
 }
 
-void playerMove()
+void playerMoveEngine()
 {
     player.stepLengthX = 0;
     player.stepLengthY = 0;

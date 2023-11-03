@@ -18,7 +18,7 @@ namespace playground
     {
         Coordinate coordinate;
 
-        Rock(int x, int y, int width = 16, int height = 16) : coordinate(x, y, width, height) {}
+        Rock(int x, int y) : coordinate(x, y) {}
 
         void drawPlacehodler()
         {
@@ -55,9 +55,9 @@ namespace playground
         Coordinate coordinate;
         Bomb(int x, int y) : coordinate(x, y) {}
 
-        void drawBomb(int x, int y)
+        void drawBomb(const std::vector<Cell>::iterator &cell)
         {
-            gb.display.drawImage(x - 8, y - 8, sprite::bomb);
+            gb.display.drawImage(cell->centralPoint.first - 8, cell->centralPoint.second - 8, sprite::bomb);
         }
     };
 
@@ -146,20 +146,10 @@ namespace playground
         Cell(88, 105, std::make_pair(96, 113)),
         Cell(120, 105, std::make_pair(128, 113))};
 
-    int findNearestCell(int playerX, int playerY)
+    auto findNearestCell(int playerXcoordinate, int playerYcoordinate)
     {
-        float nearestDistance = 999.0;
-        int index = 0;
-        int xd = 0;
-        for (auto &cell : walkableCells)
-        {
-            if (cell.getDistanceToCentral(playerX, playerY) < nearestDistance)
-            {
-                nearestDistance = cell.getDistanceToCentral(playerX, playerY);
-                xd = index;
-            }
-            index++;
-        }
-        return xd;
+        auto iterator = std::min_element(walkableCells.begin(), walkableCells.end(), [&playerXcoordinate, &playerYcoordinate](Cell &currentCell, Cell &nextCell)
+                                         { return currentCell.getDistanceToCentral(playerXcoordinate, playerYcoordinate) < nextCell.getDistanceToCentral(playerXcoordinate, playerYcoordinate); });
+        return iterator;
     }
 }
