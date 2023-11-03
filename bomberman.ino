@@ -32,10 +32,18 @@ void loop()
     gb.display.clear();
 
     gb.display.drawImage(0, 0, sprite::playgroundBackground);
+    for (const auto &cell : playground::walkableCells)
+    {
+        if (cell.isBlockPlacedOnCell)
+        {
+            gb.display.drawImage(cell.coordinate.x, cell.coordinate.y, sprite::block);
+            collider::drawBlockingElement(cell.coordinate.x, cell.coordinate.y, cell.coordinate.width, cell.coordinate.height);
+        }
+    }
 
     playerMoveEngine();
 
-    if (playground::bomb != nullptr && !isTimeElapsed(30))
+    if (playground::bomb != nullptr)
     {
         static bool flag = false;
         static int x, y;
@@ -48,5 +56,11 @@ void loop()
         playground::bomb->drawBomb(playground::findNearestCell(x, y));
 
         printNumber(timeCounter, 100, 100);
+        if (isTimeElapsed(30))
+        {
+            playground::bomb.reset();
+            timeCounter = 0;
+            flag = false;
+        }
     }
 }

@@ -31,8 +31,10 @@ namespace playground
     {
         Coordinate coordinate;
         std::pair<int, int> centralPoint;
+        bool isBlockPlacedOnCell;
 
-        Cell(int x, int y, const std::pair<int, int> &centralPoint, int width = 16, int height = 16) : coordinate(x, y, width, height), centralPoint(centralPoint)
+        Cell(int x, int y, const std::pair<int, int> &centralPoint, bool isBlockPlacedOnCell = false) : coordinate(x, y, 16, 16),
+                                                                                                        centralPoint(centralPoint), isBlockPlacedOnCell(isBlockPlacedOnCell)
         {
         }
 
@@ -105,10 +107,10 @@ namespace playground
         Cell(24, 25, std::make_pair(32, 33)),
         Cell(40, 25, std::make_pair(48, 33)),
         Cell(56, 25, std::make_pair(64, 33)),
-        Cell(72, 25, std::make_pair(80, 33)),
-        Cell(88, 25, std::make_pair(96, 33)),
-        Cell(104, 25, std::make_pair(112, 33)),
-        Cell(120, 25, std::make_pair(128, 33)),
+        Cell(72, 25, std::make_pair(80, 33), true),
+        Cell(88, 25, std::make_pair(96, 33), true),
+        Cell(104, 25, std::make_pair(112, 33), true),
+        Cell(120, 25, std::make_pair(128, 33), true),
         Cell(136, 25, std::make_pair(144, 33)),
 
         Cell(24, 41, std::make_pair(32, 49)),
@@ -127,7 +129,7 @@ namespace playground
         Cell(136, 57, std::make_pair(144, 65)),
 
         Cell(24, 73, std::make_pair(32, 81)),
-        Cell(56, 73, std::make_pair(64, 81)),
+        Cell(56, 73, std::make_pair(64, 81), true),
         Cell(88, 73, std::make_pair(96, 81)),
         Cell(120, 73, std::make_pair(128, 81)),
 
