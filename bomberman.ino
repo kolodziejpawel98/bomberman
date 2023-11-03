@@ -4,6 +4,7 @@
 #include "global_variables.hpp"
 #include "input_handler.hpp"
 #include "playground.hpp"
+#include "timer.h"
 
 Player player;
 
@@ -34,7 +35,7 @@ void loop()
 
     playerMoveEngine();
 
-    if (playground::bomb != nullptr)
+    if (playground::bomb != nullptr && !isTimeElapsed(30))
     {
         static bool flag = false;
         static int x, y;
@@ -45,5 +46,7 @@ void loop()
             flag = true;
         }
         playground::bomb->drawBomb(playground::findNearestCell(x, y));
+
+        printNumber(timeCounter, 100, 100);
     }
 }

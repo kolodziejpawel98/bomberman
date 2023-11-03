@@ -54,10 +54,10 @@ void printPair(std::vector<std::pair<int, int>> &points, int textPosX = 50, int 
     }
 }
 
-void drawDot(int x, int y)
+void drawDot(int x, int y, int size = 1)
 {
     gb.display.setColor(RED);
-    gb.display.fillRect(x, y, 1, 1);
+    gb.display.fillRect(x, y, size, size);
 }
 
 // zrobic wersje z pair template T
