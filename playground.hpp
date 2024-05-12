@@ -31,10 +31,17 @@ namespace playground
     {
         Coordinate coordinate;
         std::pair<int, int> centralPoint;
-        bool isBlockPlacedOnCell;
+        bool isDestroyableBlockPlacedOnCell;
+        bool isUndestroyableStonePlacedOnCell;
+        bool xd = true;
 
-        Cell(int x, int y, const std::pair<int, int> &centralPoint, bool isBlockPlacedOnCell = false) : coordinate(x, y, 16, 16),
-                                                                                                        centralPoint(centralPoint), isBlockPlacedOnCell(isBlockPlacedOnCell)
+        Cell(int x,
+             int y,
+             bool isDestroyableBlockPlacedOnCell = false,
+             bool isUndestroyableStonePlacedOnCell = false) : coordinate(x, y, 16, 16),
+                                                              centralPoint({x + 8, y + 8}),
+                                                              isDestroyableBlockPlacedOnCell(isDestroyableBlockPlacedOnCell),
+                                                              isUndestroyableStonePlacedOnCell(isUndestroyableStonePlacedOnCell)
         {
         }
 
@@ -57,101 +64,107 @@ namespace playground
         Coordinate coordinate;
         Bomb(int x, int y) : coordinate(x, y) {}
 
-        void drawBomb(const std::vector<Cell>::iterator &cell)
-        {
-            gb.display.drawImage(cell->centralPoint.first - 8, cell->centralPoint.second - 8, sprite::bomb);
+        void drawBomb(const std::vector<std::shared_ptr<Cell>>::iterator &cell)
+        { // TODO
+            gb.display.drawImage(cell.centralPoint.first - 8, cell.centralPoint.second - 8, sprite::bomb);
         }
     };
 
     std::shared_ptr<Bomb> bomb = nullptr;
 
-    std::vector<Rock> rocks = {
-        Rock(8, 9),
-        Rock(40, 9),
-        Rock(72, 9),
-        Rock(104, 9),
-        Rock(136, 9),
+    std::vector<std::shared_ptr<Rock>>
+        rocks = {
+            std::make_shared<Rock>(8, 9),
+            std::make_shared<Rock>(40, 9),
+            std::make_shared<Rock>(72, 9),
+            std::make_shared<Rock>(104, 9),
+            std::make_shared<Rock>(136, 9),
 
-        Rock(8, 41),
-        Rock(40, 41),
-        Rock(72, 41),
-        Rock(104, 41),
-        Rock(136, 41),
+            std::make_shared<Rock>(8, 41),
+            std::make_shared<Rock>(40, 41),
+            std::make_shared<Rock>(72, 41),
+            std::make_shared<Rock>(104, 41),
+            std::make_shared<Rock>(136, 41),
 
-        Rock(8, 73),
-        Rock(40, 73),
-        Rock(72, 73),
-        Rock(104, 73),
-        Rock(136, 73),
+            std::make_shared<Rock>(8, 73),
+            std::make_shared<Rock>(40, 73),
+            std::make_shared<Rock>(72, 73),
+            std::make_shared<Rock>(104, 73),
+            std::make_shared<Rock>(136, 73),
 
-        Rock(8, 105),
-        Rock(40, 105),
-        Rock(72, 105),
-        Rock(104, 105),
-        Rock(136, 105)};
+            std::make_shared<Rock>(8, 105),
+            std::make_shared<Rock>(40, 105),
+            std::make_shared<Rock>(72, 105),
+            std::make_shared<Rock>(104, 105),
+            std::make_shared<Rock>(136, 105)};
 
-    std::vector<Coordinate> borders = {
-        Coordinate(0, 0, 160, 9),
-        Coordinate(0, 9, 8, 119),
-        Coordinate(8, 121, 152, 7),
-        Coordinate(152, 9, 8, 112)};
+    std::vector<std::shared_ptr<Coordinate>> borders = {
+        std::make_shared<Coordinate>(0, 0, 160, 9),
+        std::make_shared<Coordinate>(0, 9, 8, 119),
+        std::make_shared<Coordinate>(8, 121, 152, 7),
+        std::make_shared<Coordinate>(152, 9, 8, 112)};
 
-    std::vector<Cell> walkableCells = {
+    // std::vector<std::shared_ptr<Coordinate>> borddders = {
+    //     std::make_shared<Coordinate>(0, 0, 160, 9),
+    //     std::make_shared<Coordinate>(0, 9, 8, 119)};
 
-        Cell(24, 9, std::make_pair(32, 17)),
-        Cell(56, 9, std::make_pair(64, 17)),
-        Cell(88, 9, std::make_pair(96, 17)),
-        Cell(120, 9, std::make_pair(128, 17)),
+    std::vector<std::shared_ptr<Cell>> walkableCells = {
 
-        Cell(8, 25, std::make_pair(16, 33)),
-        Cell(24, 25, std::make_pair(32, 33)),
-        Cell(40, 25, std::make_pair(48, 33)),
-        Cell(56, 25, std::make_pair(64, 33)),
-        Cell(72, 25, std::make_pair(80, 33), true),
-        Cell(88, 25, std::make_pair(96, 33), true),
-        Cell(104, 25, std::make_pair(112, 33), true),
-        Cell(120, 25, std::make_pair(128, 33), true),
-        Cell(136, 25, std::make_pair(144, 33)),
+        std::make_shared<Cell>(24, 9),
+        std::make_shared<Cell>(56, 9),
+        std::make_shared<Cell>(88, 9),
+        std::make_shared<Cell>(120, 9),
 
-        Cell(24, 41, std::make_pair(32, 49)),
-        Cell(56, 41, std::make_pair(64, 49)),
-        Cell(88, 41, std::make_pair(96, 49)),
-        Cell(120, 41, std::make_pair(128, 49)),
+        std::make_shared<Cell>(8, 25),
+        std::make_shared<Cell>(24, 25),
+        std::make_shared<Cell>(40, 25),
+        std::make_shared<Cell>(56, 25),
+        std::make_shared<Cell>(72, 25, true),
+        std::make_shared<Cell>(88, 25, true),
+        std::make_shared<Cell>(104, 25, true),
+        std::make_shared<Cell>(120, 25, true),
+        std::make_shared<Cell>(136, 25),
 
-        Cell(8, 57, std::make_pair(16, 65)),
-        Cell(24, 57, std::make_pair(32, 65)),
-        Cell(40, 57, std::make_pair(48, 65)),
-        Cell(56, 57, std::make_pair(64, 65)),
-        Cell(72, 57, std::make_pair(80, 65)),
-        Cell(88, 57, std::make_pair(96, 65)),
-        Cell(104, 57, std::make_pair(112, 65)),
-        Cell(120, 57, std::make_pair(128, 65)),
-        Cell(136, 57, std::make_pair(144, 65)),
+        std::make_shared<Cell>(24, 41),
+        std::make_shared<Cell>(56, 41),
+        std::make_shared<Cell>(88, 41),
+        std::make_shared<Cell>(120, 41),
 
-        Cell(24, 73, std::make_pair(32, 81)),
-        Cell(56, 73, std::make_pair(64, 81), true),
-        Cell(88, 73, std::make_pair(96, 81)),
-        Cell(120, 73, std::make_pair(128, 81)),
+        std::make_shared<Cell>(8, 57),
+        std::make_shared<Cell>(24, 57),
+        std::make_shared<Cell>(40, 57),
+        std::make_shared<Cell>(56, 57),
+        std::make_shared<Cell>(72, 57),
+        std::make_shared<Cell>(88, 57),
+        std::make_shared<Cell>(104, 57),
+        std::make_shared<Cell>(120, 57),
+        std::make_shared<Cell>(136, 57),
 
-        Cell(8, 89, std::make_pair(16, 97)),
-        Cell(24, 89, std::make_pair(32, 97)),
-        Cell(40, 89, std::make_pair(48, 97)),
-        Cell(56, 89, std::make_pair(64, 97)),
-        Cell(72, 89, std::make_pair(80, 97)),
-        Cell(88, 89, std::make_pair(96, 97)),
-        Cell(104, 89, std::make_pair(112, 97)),
-        Cell(120, 89, std::make_pair(128, 97)),
-        Cell(136, 89, std::make_pair(144, 97)),
+        std::make_shared<Cell>(24, 73),
+        std::make_shared<Cell>(56, 73, true),
+        std::make_shared<Cell>(88, 73),
+        std::make_shared<Cell>(120, 73),
 
-        Cell(24, 105, std::make_pair(32, 113)),
-        Cell(56, 105, std::make_pair(64, 113)),
-        Cell(88, 105, std::make_pair(96, 113)),
-        Cell(120, 105, std::make_pair(128, 113))};
+        std::make_shared<Cell>(8, 89),
+        std::make_shared<Cell>(24, 89),
+        std::make_shared<Cell>(40, 89),
+        std::make_shared<Cell>(56, 89),
+        std::make_shared<Cell>(72, 89),
+        std::make_shared<Cell>(88, 89),
+        std::make_shared<Cell>(104, 89),
+        std::make_shared<Cell>(120, 89),
+        std::make_shared<Cell>(136, 89),
 
-    auto findNearestCell(int playerXcoordinate, int playerYcoordinate)
+        std::make_shared<Cell>(24, 105),
+        std::make_shared<Cell>(56, 105),
+        std::make_shared<Cell>(88, 105),
+        std::make_shared<Cell>(120, 105)};
+
+    std::vector<std::shared_ptr<Cell>>::iterator findNearestCell(int playerXcoordinate, int playerYcoordinate)
     {
-        auto iterator = std::min_element(walkableCells.begin(), walkableCells.end(), [&playerXcoordinate, &playerYcoordinate](Cell &currentCell, Cell &nextCell)
-                                         { return currentCell.getDistanceToCentral(playerXcoordinate, playerYcoordinate) < nextCell.getDistanceToCentral(playerXcoordinate, playerYcoordinate); });
+        auto iterator = std::min_element(walkableCells.begin(), walkableCells.end(), [&playerXcoordinate, &playerYcoordinate](const std::shared_ptr<Cell> &currentCell, const std::shared_ptr<Cell> &nextCell)
+                                         { return currentCell->getDistanceToCentral(playerXcoordinate, playerYcoordinate) < nextCell->getDistanceToCentral(playerXcoordinate, playerYcoordinate); });
         return iterator;
     }
+
 }
