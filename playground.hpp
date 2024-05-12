@@ -31,10 +31,17 @@ namespace playground
     {
         Coordinate coordinate;
         std::pair<int, int> centralPoint;
-        bool isBlockPlacedOnCell;
+        bool isDestroyableBlockPlacedOnCell;
+        bool isUndestroyableStonePlacedOnCell;
+        bool xd = true;
 
-        Cell(int x, int y, const std::pair<int, int> &centralPoint, bool isBlockPlacedOnCell = false) : coordinate(x, y, 16, 16),
-                                                                                                        centralPoint(centralPoint), isBlockPlacedOnCell(isBlockPlacedOnCell)
+        Cell(int x,
+             int y,
+             bool isDestroyableBlockPlacedOnCell = false,
+             bool isUndestroyableStonePlacedOnCell = false) : coordinate(x, y, 16, 16),
+                                                              centralPoint({x + 8, y + 8}),
+                                                              isDestroyableBlockPlacedOnCell(isDestroyableBlockPlacedOnCell),
+                                                              isUndestroyableStonePlacedOnCell(isUndestroyableStonePlacedOnCell)
         {
         }
 
@@ -63,32 +70,31 @@ namespace playground
         }
     };
 
-    std::shared_ptr<Bomb> bomb = nullptr;
+    std::vector<Rock>
+        rocks = {
+            Rock(8, 9),
+            Rock(40, 9),
+            Rock(72, 9),
+            Rock(104, 9),
+            Rock(136, 9),
 
-    std::vector<Rock> rocks = {
-        Rock(8, 9),
-        Rock(40, 9),
-        Rock(72, 9),
-        Rock(104, 9),
-        Rock(136, 9),
+            Rock(8, 41),
+            Rock(40, 41),
+            Rock(72, 41),
+            Rock(104, 41),
+            Rock(136, 41),
 
-        Rock(8, 41),
-        Rock(40, 41),
-        Rock(72, 41),
-        Rock(104, 41),
-        Rock(136, 41),
+            Rock(8, 73),
+            Rock(40, 73),
+            Rock(72, 73),
+            Rock(104, 73),
+            Rock(136, 73),
 
-        Rock(8, 73),
-        Rock(40, 73),
-        Rock(72, 73),
-        Rock(104, 73),
-        Rock(136, 73),
-
-        Rock(8, 105),
-        Rock(40, 105),
-        Rock(72, 105),
-        Rock(104, 105),
-        Rock(136, 105)};
+            Rock(8, 105),
+            Rock(40, 105),
+            Rock(72, 105),
+            Rock(104, 105),
+            Rock(136, 105)};
 
     std::vector<Coordinate> borders = {
         Coordinate(0, 0, 160, 9),
@@ -98,55 +104,55 @@ namespace playground
 
     std::vector<Cell> walkableCells = {
 
-        Cell(24, 9, std::make_pair(32, 17)),
-        Cell(56, 9, std::make_pair(64, 17)),
-        Cell(88, 9, std::make_pair(96, 17)),
-        Cell(120, 9, std::make_pair(128, 17)),
+        Cell(24, 9),
+        Cell(56, 9),
+        Cell(88, 9),
+        Cell(120, 9),
 
-        Cell(8, 25, std::make_pair(16, 33)),
-        Cell(24, 25, std::make_pair(32, 33)),
-        Cell(40, 25, std::make_pair(48, 33)),
-        Cell(56, 25, std::make_pair(64, 33)),
-        Cell(72, 25, std::make_pair(80, 33), true),
-        Cell(88, 25, std::make_pair(96, 33), true),
-        Cell(104, 25, std::make_pair(112, 33), true),
-        Cell(120, 25, std::make_pair(128, 33), true),
-        Cell(136, 25, std::make_pair(144, 33)),
+        Cell(8, 25),
+        Cell(24, 25),
+        Cell(40, 25),
+        Cell(56, 25),
+        Cell(72, 25, true),
+        Cell(88, 25, true),
+        Cell(104, 25, true),
+        Cell(120, 25, true),
+        Cell(136, 25),
 
-        Cell(24, 41, std::make_pair(32, 49)),
-        Cell(56, 41, std::make_pair(64, 49)),
-        Cell(88, 41, std::make_pair(96, 49)),
-        Cell(120, 41, std::make_pair(128, 49)),
+        Cell(24, 41),
+        Cell(56, 41),
+        Cell(88, 41),
+        Cell(120, 41),
 
-        Cell(8, 57, std::make_pair(16, 65)),
-        Cell(24, 57, std::make_pair(32, 65)),
-        Cell(40, 57, std::make_pair(48, 65)),
-        Cell(56, 57, std::make_pair(64, 65)),
-        Cell(72, 57, std::make_pair(80, 65)),
-        Cell(88, 57, std::make_pair(96, 65)),
-        Cell(104, 57, std::make_pair(112, 65)),
-        Cell(120, 57, std::make_pair(128, 65)),
-        Cell(136, 57, std::make_pair(144, 65)),
+        Cell(8, 57),
+        Cell(24, 57),
+        Cell(40, 57),
+        Cell(56, 57),
+        Cell(72, 57),
+        Cell(88, 57),
+        Cell(104, 57),
+        Cell(120, 57),
+        Cell(136, 57),
 
-        Cell(24, 73, std::make_pair(32, 81)),
-        Cell(56, 73, std::make_pair(64, 81), true),
-        Cell(88, 73, std::make_pair(96, 81)),
-        Cell(120, 73, std::make_pair(128, 81)),
+        Cell(24, 73),
+        Cell(56, 73, true),
+        Cell(88, 73),
+        Cell(120, 73),
 
-        Cell(8, 89, std::make_pair(16, 97)),
-        Cell(24, 89, std::make_pair(32, 97)),
-        Cell(40, 89, std::make_pair(48, 97)),
-        Cell(56, 89, std::make_pair(64, 97)),
-        Cell(72, 89, std::make_pair(80, 97)),
-        Cell(88, 89, std::make_pair(96, 97)),
-        Cell(104, 89, std::make_pair(112, 97)),
-        Cell(120, 89, std::make_pair(128, 97)),
-        Cell(136, 89, std::make_pair(144, 97)),
+        Cell(8, 89),
+        Cell(24, 89),
+        Cell(40, 89),
+        Cell(56, 89),
+        Cell(72, 89),
+        Cell(88, 89),
+        Cell(104, 89),
+        Cell(120, 89),
+        Cell(136, 89),
 
-        Cell(24, 105, std::make_pair(32, 113)),
-        Cell(56, 105, std::make_pair(64, 113)),
-        Cell(88, 105, std::make_pair(96, 113)),
-        Cell(120, 105, std::make_pair(128, 113))};
+        Cell(24, 105),
+        Cell(56, 105),
+        Cell(88, 105),
+        Cell(120, 105)};
 
     auto findNearestCell(int playerXcoordinate, int playerYcoordinate)
     {
@@ -154,4 +160,5 @@ namespace playground
                                          { return currentCell.getDistanceToCentral(playerXcoordinate, playerYcoordinate) < nextCell.getDistanceToCentral(playerXcoordinate, playerYcoordinate); });
         return iterator;
     }
+
 }
