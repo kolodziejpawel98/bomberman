@@ -34,25 +34,13 @@ namespace playground
         std::pair<int, int> centralPoint;
         bool isDestroyableBlockPlacedOnCell;
         bool isUndestroyableStonePlacedOnCell;
-        std::vector<std::pair<int, int>> crossNeighbors;
+        std::vector<std::shared_ptr<Cell>> crossPatternNeighbors; // uint8_t
 
         Cell(int x,
              int y,
              bool isDestroyableBlockPlacedOnCell = false,
              bool isUndestroyableStonePlacedOnCell = false) : coordinate(x, y, 16, 16),
                                                               centralPoint({x + 8, y + 8}),
-                                                              isDestroyableBlockPlacedOnCell(isDestroyableBlockPlacedOnCell),
-                                                              isUndestroyableStonePlacedOnCell(isUndestroyableStonePlacedOnCell)
-        {
-        }
-
-        Cell(int x,
-             int y,
-             std::vector<std::pair<int, int>> crossNeighbors,
-             bool isDestroyableBlockPlacedOnCell = false,
-             bool isUndestroyableStonePlacedOnCell = false) : coordinate(x, y, 16, 16),
-                                                              centralPoint({x + 8, y + 8}),
-                                                              crossNeighbors(crossNeighbors),
                                                               isDestroyableBlockPlacedOnCell(isDestroyableBlockPlacedOnCell),
                                                               isUndestroyableStonePlacedOnCell(isUndestroyableStonePlacedOnCell)
         {
@@ -77,47 +65,30 @@ namespace playground
         Coordinate coordinate;
         Bomb(int x, int y) : coordinate(x, y) {}
 
-        void drawBomb(const std::vector<Cell>::iterator &cell)
+        void drawBomb(const std::vector<std::shared_ptr<Cell>>::iterator &cell)
         {
-            gb.display.drawImage(cell->centralPoint.first - 8, cell->centralPoint.second - 8, sprite::bomb);
+            gb.display.drawImage(cell->get()->centralPoint.first - 8, cell->get()->centralPoint.second - 8, sprite::bomb);
+            drawBlast(cell);
+        }
+
+        void drawBlast(const std::vector<std::shared_ptr<Cell>>::iterator &cell)
+        {
+            gb.display.setColor(RED);
+            for (auto &neighbor : cell->get()->crossPatternNeighbors)
+            {
+                gb.display.fillRect(neighbor->coordinate.x, neighbor->coordinate.y, neighbor->coordinate.width, neighbor->coordinate.height);
+            }
         }
     };
 
     std::shared_ptr<Bomb> bomb = nullptr;
-
-    std::vector<Rock>
-        rocks = {
-            Rock(8, 9),
-            Rock(40, 9),
-            Rock(72, 9),
-            Rock(104, 9),
-            Rock(136, 9),
-
-            Rock(8, 41),
-            Rock(40, 41),
-            Rock(72, 41),
-            Rock(104, 41),
-            Rock(136, 41),
-
-            Rock(8, 73),
-            Rock(40, 73),
-            Rock(72, 73),
-            Rock(104, 73),
-            Rock(136, 73),
-
-            Rock(8, 105),
-            Rock(40, 105),
-            Rock(72, 105),
-            Rock(104, 105),
-            Rock(136, 105)};
-
     std::vector<Coordinate> borders = {
         Coordinate(0, 0, 160, 9),
         Coordinate(0, 9, 8, 119),
         Coordinate(8, 121, 152, 7),
         Coordinate(152, 9, 8, 112)};
 
-    std::vector<std::shared_ptr<Cell>> allCells = {
+    std::vector<std::shared_ptr<Cell>> cells = {
         std::make_shared<Cell>(8, 9, false, true),
         std::make_shared<Cell>(24, 9, false, false),
         std::make_shared<Cell>(40, 9, false, true),
@@ -188,11 +159,40 @@ namespace playground
         std::make_shared<Cell>(120, 105, false, false),
         std::make_shared<Cell>(136, 105, false, true)};
 
-    // auto findNearestCell(int playerXcoordinate, int playerYcoordinate)
-    // {
-    //     auto iterator = std::min_element(walkableCells.begin(), walkableCells.end(), [&playerXcoordinate, &playerYcoordinate](Cell &currentCell, Cell &nextCell)
-    //                                      { return currentCell.getDistanceToCentral(playerXcoordinate, playerYcoordinate) < nextCell.getDistanceToCentral(playerXcoordinate, playerYcoordinate); });
-    //     return iterator;
-    // }
+    // cells[0]->crossPatternNeighbors.push_back(cells.at(1));
+
+    void setCrossPatternNeighbors()
+    {
+        cells[1]->crossPatternNeighbors.push_back(cells[10]);
+        cells[3]->crossPatternNeighbors.push_back(cells[12]);
+        cells[5]->crossPatternNeighbors.push_back(cells[14]);
+        cells[7]->crossPatternNeighbors.push_back(cells[16]);
+
+        cells[9]->crossPatternNeighbors.push_back(cells[10]);
+        cells[10]->crossPatternNeighbors.push_back(cells[1]);
+        cells[10]->crossPatternNeighbors.push_back(cells[9]);
+        cells[10]->crossPatternNeighbors.push_back(cells[19]);
+        cells[10]->crossPatternNeighbors.push_back(cells[11]);
+
+        cells[11]->crossPatternNeighbors.push_back(cells[10]);
+        cells[11]->crossPatternNeighbors.push_back(cells[12]);
+
+        cells[12]->crossPatternNeighbors.push_back(cells[3]);
+        cells[12]->crossPatternNeighbors.push_back(cells[11]);
+        cells[12]->crossPatternNeighbors.push_back(cells[21]);
+        cells[12]->crossPatternNeighbors.push_back(cells[13]);
+
+        cells[13]->crossPatternNeighbors.push_back(cells[12]);
+        cells[13]->crossPatternNeighbors.push_back(cells[14]);
+    }
+
+    std::vector<std::shared_ptr<Cell>>::iterator findNearestCell(int playerXcoordinate, int playerYcoordinate)
+    { // TODO!!!!!!!!!!!! now lambda takes every cell, but should takes only walkable cells!!!!!!
+        std::vector<std::shared_ptr<Cell>>::iterator iterator = std::min_element(cells.begin(),
+                                                                                 cells.end(),
+                                                                                 [&playerXcoordinate, &playerYcoordinate](const std::shared_ptr<Cell> &currentCell, const std::shared_ptr<Cell> &nextCell)
+                                                                                 { return currentCell->getDistanceToCentral(playerXcoordinate, playerYcoordinate) < nextCell->getDistanceToCentral(playerXcoordinate, playerYcoordinate); });
+        return iterator;
+    }
 
 }

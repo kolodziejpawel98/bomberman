@@ -14,14 +14,16 @@ void setup()
     gb.setFrameRate(60);
     gb.display.setPalette(PALETTE);
 
-    for (const auto &rock : playground::rocks)
+    for (const auto &block : playground::cells)
     {
-        collider::drawBlockingElement(rock.coordinate.x, rock.coordinate.y, rock.coordinate.width, rock.coordinate.height);
+        if (block->isUndestroyableStonePlacedOnCell)
+            collider::drawBlockingElement(block->coordinate.x, block->coordinate.y, block->coordinate.width, block->coordinate.height);
     }
     for (const auto &border : playground::borders)
     {
         collider::drawBlockingElement(border.x, border.y, border.width, border.height);
     }
+    playground::setCrossPatternNeighbors();
 }
 
 void loop()
@@ -32,7 +34,7 @@ void loop()
     gb.display.clear();
 
     gb.display.drawImage(0, 0, sprite::playgroundBackground);
-    for (const auto &cell : playground::allCells)
+    for (const auto &cell : playground::cells)
     {
         if (cell->isDestroyableBlockPlacedOnCell)
         {
@@ -53,7 +55,7 @@ void loop()
             y = player.y + 8;
             flag = true;
         }
-        // playground::bomb->drawBomb(playground::findNearestCell(x, y));
+        playground::bomb->drawBomb(playground::findNearestCell(x, y));
         printNumber(timeCounter, 100, 100);
         gb.sound.play("explosion.wav");
 
@@ -63,14 +65,7 @@ void loop()
         }
         if (isTimeElapsed(20))
         {
-            printText("WTF F F F F !!!!", 100, 100);
-            for (auto &cell : playground::allCells)
-            {
-                if (cell->isUndestroyableStonePlacedOnCell)
-                {
-                    cell->drawPlacehodler();
-                }
-            }
+            printText("!!!", 100, 100);
         }
         if (isTimeElapsed(60))
         {
