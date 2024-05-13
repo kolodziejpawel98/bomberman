@@ -10,6 +10,7 @@
 #include <Arduino.h>
 #include <vector>
 #include <utility>
+#include <memory>
 #include "coordinate.hpp"
 
 namespace playground
@@ -33,7 +34,7 @@ namespace playground
         std::pair<int, int> centralPoint;
         bool isDestroyableBlockPlacedOnCell;
         bool isUndestroyableStonePlacedOnCell;
-        // std::vector<std::pair<int, int>> crossNeighbors;
+        std::vector<std::pair<int, int>> crossNeighbors;
 
         Cell(int x,
              int y,
@@ -45,17 +46,17 @@ namespace playground
         {
         }
 
-        // Cell(int x,
-        //      int y,
-        //      std::vector<std::pair<int, int>> crossNeighbors,
-        //      bool isDestroyableBlockPlacedOnCell = false,
-        //      bool isUndestroyableStonePlacedOnCell = false) : coordinate(x, y, 16, 16),
-        //                                                       centralPoint({x + 8, y + 8}),
-        //                                                       crossNeighbors(crossNeighbors),
-        //                                                       isDestroyableBlockPlacedOnCell(isDestroyableBlockPlacedOnCell),
-        //                                                       isUndestroyableStonePlacedOnCell(isUndestroyableStonePlacedOnCell)
-        // {
-        // }
+        Cell(int x,
+             int y,
+             std::vector<std::pair<int, int>> crossNeighbors,
+             bool isDestroyableBlockPlacedOnCell = false,
+             bool isUndestroyableStonePlacedOnCell = false) : coordinate(x, y, 16, 16),
+                                                              centralPoint({x + 8, y + 8}),
+                                                              crossNeighbors(crossNeighbors),
+                                                              isDestroyableBlockPlacedOnCell(isDestroyableBlockPlacedOnCell),
+                                                              isUndestroyableStonePlacedOnCell(isUndestroyableStonePlacedOnCell)
+        {
+        }
 
         void drawPlacehodler()
         {
@@ -187,63 +188,11 @@ namespace playground
         std::make_shared<Cell>(120, 105, false, false),
         std::make_shared<Cell>(136, 105, false, true)};
 
-    std::vector<Cell> walkableCells = {
-
-        Cell(24, 9),
-        Cell(56, 9),
-        Cell(88, 9),
-        Cell(120, 9),
-
-        Cell(8, 25),
-        Cell(24, 25),
-        Cell(40, 25),
-        Cell(56, 25),
-        Cell(72, 25, true),
-        Cell(88, 25, true),
-        Cell(104, 25, true),
-        Cell(120, 25, true),
-        Cell(136, 25),
-
-        Cell(24, 41),
-        Cell(56, 41),
-        Cell(88, 41),
-        Cell(120, 41),
-
-        Cell(8, 57),
-        Cell(24, 57),
-        Cell(40, 57),
-        Cell(56, 57),
-        Cell(72, 57),
-        Cell(88, 57),
-        Cell(104, 57),
-        Cell(120, 57),
-        Cell(136, 57),
-
-        Cell(24, 73),
-        Cell(56, 73, true),
-        Cell(88, 73),
-        Cell(120, 73),
-
-        Cell(8, 89),
-        Cell(24, 89),
-        Cell(40, 89),
-        Cell(56, 89),
-        Cell(72, 89),
-        Cell(88, 89),
-        Cell(104, 89),
-        Cell(120, 89),
-        Cell(136, 89),
-
-        Cell(24, 105),
-        Cell(56, 105),
-        Cell(88, 105),
-        Cell(120, 105)};
-
-    auto findNearestCell(int playerXcoordinate, int playerYcoordinate)
-    {
-        auto iterator = std::min_element(walkableCells.begin(), walkableCells.end(), [&playerXcoordinate, &playerYcoordinate](Cell &currentCell, Cell &nextCell)
-                                         { return currentCell.getDistanceToCentral(playerXcoordinate, playerYcoordinate) < nextCell.getDistanceToCentral(playerXcoordinate, playerYcoordinate); });
-        return iterator;
-    }
+    // auto findNearestCell(int playerXcoordinate, int playerYcoordinate)
+    // {
+    //     auto iterator = std::min_element(walkableCells.begin(), walkableCells.end(), [&playerXcoordinate, &playerYcoordinate](Cell &currentCell, Cell &nextCell)
+    //                                      { return currentCell.getDistanceToCentral(playerXcoordinate, playerYcoordinate) < nextCell.getDistanceToCentral(playerXcoordinate, playerYcoordinate); });
+    //     return iterator;
+    // }
 
 }

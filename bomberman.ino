@@ -3,9 +3,8 @@
 #include "debug_framework.hpp"
 #include "global_variables.hpp"
 #include "input_handler.hpp"
-// #include "playground.hpp"
 #include "timer.h"
-#include "weirdo_arduino.hpp"
+#include "playground.hpp"
 
 Player player;
 
@@ -33,12 +32,12 @@ void loop()
     gb.display.clear();
 
     gb.display.drawImage(0, 0, sprite::playgroundBackground);
-    for (const auto &cell : playground::walkableCells)
+    for (const auto &cell : playground::allCells)
     {
-        if (cell.isDestroyableBlockPlacedOnCell)
+        if (cell->isDestroyableBlockPlacedOnCell)
         {
-            gb.display.drawImage(cell.coordinate.x, cell.coordinate.y, sprite::block);
-            collider::drawBlockingElement(cell.coordinate.x, cell.coordinate.y, cell.coordinate.width, cell.coordinate.height);
+            gb.display.drawImage(cell->coordinate.x, cell->coordinate.y, sprite::block);
+            collider::drawBlockingElement(cell->coordinate.x, cell->coordinate.y, cell->coordinate.width, cell->coordinate.height);
         }
     }
 
@@ -54,7 +53,7 @@ void loop()
             y = player.y + 8;
             flag = true;
         }
-        playground::bomb->drawBomb(playground::findNearestCell(x, y));
+        // playground::bomb->drawBomb(playground::findNearestCell(x, y));
         printNumber(timeCounter, 100, 100);
         gb.sound.play("explosion.wav");
 
