@@ -33,7 +33,7 @@ namespace playground
         std::pair<int, int> centralPoint;
         bool isDestroyableBlockPlacedOnCell;
         bool isUndestroyableStonePlacedOnCell;
-        bool xd = true;
+        // std::vector<std::pair<int, int>> crossNeighbors;
 
         Cell(int x,
              int y,
@@ -44,6 +44,18 @@ namespace playground
                                                               isUndestroyableStonePlacedOnCell(isUndestroyableStonePlacedOnCell)
         {
         }
+
+        // Cell(int x,
+        //      int y,
+        //      std::vector<std::pair<int, int>> crossNeighbors,
+        //      bool isDestroyableBlockPlacedOnCell = false,
+        //      bool isUndestroyableStonePlacedOnCell = false) : coordinate(x, y, 16, 16),
+        //                                                       centralPoint({x + 8, y + 8}),
+        //                                                       crossNeighbors(crossNeighbors),
+        //                                                       isDestroyableBlockPlacedOnCell(isDestroyableBlockPlacedOnCell),
+        //                                                       isUndestroyableStonePlacedOnCell(isUndestroyableStonePlacedOnCell)
+        // {
+        // }
 
         void drawPlacehodler()
         {
@@ -104,9 +116,76 @@ namespace playground
         Coordinate(8, 121, 152, 7),
         Coordinate(152, 9, 8, 112)};
 
-    std::vector<std::shared_ptr<Coordinate>> borddders = {
-        std::make_shared<Coordinate>(0, 0, 160, 9),
-        std::make_shared<Coordinate>(0, 9, 8, 119)};
+    std::vector<std::shared_ptr<Cell>> allCells = {
+        std::make_shared<Cell>(8, 9, false, true),
+        std::make_shared<Cell>(24, 9, false, false),
+        std::make_shared<Cell>(40, 9, false, true),
+        std::make_shared<Cell>(56, 9, false, false),
+        std::make_shared<Cell>(72, 9, false, true),
+        std::make_shared<Cell>(88, 9, false, false),
+        std::make_shared<Cell>(104, 9, false, true),
+        std::make_shared<Cell>(120, 9, false, false),
+        std::make_shared<Cell>(136, 9, false, true),
+
+        std::make_shared<Cell>(8, 25, false, false),
+        std::make_shared<Cell>(24, 25, false, false),
+        std::make_shared<Cell>(40, 25, false, false),
+        std::make_shared<Cell>(56, 25, false, false),
+        std::make_shared<Cell>(72, 25, false, false),
+        std::make_shared<Cell>(88, 25, false, false),
+        std::make_shared<Cell>(104, 25, false, false),
+        std::make_shared<Cell>(120, 25, false, false),
+        std::make_shared<Cell>(136, 25, false, false),
+
+        std::make_shared<Cell>(8, 41, false, true),
+        std::make_shared<Cell>(24, 41, false, false),
+        std::make_shared<Cell>(40, 41, false, true),
+        std::make_shared<Cell>(56, 41, false, false),
+        std::make_shared<Cell>(72, 41, false, true),
+        std::make_shared<Cell>(88, 41, false, false),
+        std::make_shared<Cell>(104, 41, false, true),
+        std::make_shared<Cell>(120, 41, false, false),
+        std::make_shared<Cell>(136, 41, false, true),
+
+        std::make_shared<Cell>(8, 57, false, false),
+        std::make_shared<Cell>(24, 57, false, false),
+        std::make_shared<Cell>(40, 57, false, false),
+        std::make_shared<Cell>(56, 57, false, false),
+        std::make_shared<Cell>(72, 57, false, false),
+        std::make_shared<Cell>(88, 57, false, false),
+        std::make_shared<Cell>(104, 57, false, false),
+        std::make_shared<Cell>(120, 57, false, false),
+        std::make_shared<Cell>(136, 57, false, false),
+
+        std::make_shared<Cell>(8, 73, false, true),
+        std::make_shared<Cell>(24, 73, false, false),
+        std::make_shared<Cell>(40, 73, false, true),
+        std::make_shared<Cell>(56, 73, false, false),
+        std::make_shared<Cell>(72, 73, false, true),
+        std::make_shared<Cell>(88, 73, false, false),
+        std::make_shared<Cell>(104, 73, false, true),
+        std::make_shared<Cell>(120, 73, false, false),
+        std::make_shared<Cell>(136, 73, false, true),
+
+        std::make_shared<Cell>(8, 89, false, false),
+        std::make_shared<Cell>(24, 89, false, false),
+        std::make_shared<Cell>(40, 89, false, false),
+        std::make_shared<Cell>(56, 89, false, false),
+        std::make_shared<Cell>(72, 89, false, false),
+        std::make_shared<Cell>(88, 89, false, false),
+        std::make_shared<Cell>(104, 89, false, false),
+        std::make_shared<Cell>(120, 89, false, false),
+        std::make_shared<Cell>(136, 89, false, false),
+
+        std::make_shared<Cell>(8, 105, false, true),
+        std::make_shared<Cell>(24, 105, false, false),
+        std::make_shared<Cell>(40, 105, false, true),
+        std::make_shared<Cell>(56, 105, false, false),
+        std::make_shared<Cell>(72, 105, false, true),
+        std::make_shared<Cell>(88, 105, false, false),
+        std::make_shared<Cell>(104, 105, false, true),
+        std::make_shared<Cell>(120, 105, false, false),
+        std::make_shared<Cell>(136, 105, false, true)};
 
     std::vector<Cell> walkableCells = {
 

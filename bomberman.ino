@@ -3,8 +3,9 @@
 #include "debug_framework.hpp"
 #include "global_variables.hpp"
 #include "input_handler.hpp"
-#include "playground.hpp"
+// #include "playground.hpp"
 #include "timer.h"
+#include "weirdo_arduino.hpp"
 
 Player player;
 
@@ -63,13 +64,20 @@ void loop()
         }
         if (isTimeElapsed(20))
         {
-            printText("!!!!", 100, 100);
+            printText("WTF F F F F !!!!", 100, 100);
+            for (auto &cell : playground::allCells)
+            {
+                if (cell->isUndestroyableStonePlacedOnCell)
+                {
+                    cell->drawPlacehodler();
+                }
+            }
         }
-        if (isTimeElapsed(30))
+        if (isTimeElapsed(60))
         {
             printText("!!!!!!", 100, 100);
         }
-        if (isTimeElapsed(40))
+        if (isTimeElapsed(70))
         {
             playground::bomb.reset();
             timeCounter = 0;
