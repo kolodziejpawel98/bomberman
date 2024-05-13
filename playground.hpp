@@ -70,33 +70,39 @@ namespace playground
         }
     };
 
-    std::shared_ptr<Bomb> bomb = nullptr;
-
-    std::vector<std::shared_ptr<Rock>>
+    std::vector<Rock>
         rocks = {
-            std::make_shared<Rock>(8, 9),
-            std::make_shared<Rock>(40, 9),
-            std::make_shared<Rock>(72, 9),
-            std::make_shared<Rock>(104, 9),
-            std::make_shared<Rock>(136, 9),
+            Rock(8, 9),
+            Rock(40, 9),
+            Rock(72, 9),
+            Rock(104, 9),
+            Rock(136, 9),
 
-            std::make_shared<Rock>(8, 41),
-            std::make_shared<Rock>(40, 41),
-            std::make_shared<Rock>(72, 41),
-            std::make_shared<Rock>(104, 41),
-            std::make_shared<Rock>(136, 41),
+            std::vector<std::shared_ptr<Rock>>
+                rocks = {
+                    std::make_shared<Rock>(8, 9),
+                    std::make_shared<Rock>(40, 9),
+                    std::make_shared<Rock>(72, 9),
+                    std::make_shared<Rock>(104, 9),
+                    std::make_shared<Rock>(136, 9),
 
-            std::make_shared<Rock>(8, 73),
-            std::make_shared<Rock>(40, 73),
-            std::make_shared<Rock>(72, 73),
-            std::make_shared<Rock>(104, 73),
-            std::make_shared<Rock>(136, 73),
+                    std::make_shared<Rock>(8, 41),
+                    std::make_shared<Rock>(40, 41),
+                    std::make_shared<Rock>(72, 41),
+                    std::make_shared<Rock>(104, 41),
+                    std::make_shared<Rock>(136, 41),
 
-            std::make_shared<Rock>(8, 105),
-            std::make_shared<Rock>(40, 105),
-            std::make_shared<Rock>(72, 105),
-            std::make_shared<Rock>(104, 105),
-            std::make_shared<Rock>(136, 105)};
+                    std::make_shared<Rock>(8, 73),
+                    std::make_shared<Rock>(40, 73),
+                    std::make_shared<Rock>(72, 73),
+                    std::make_shared<Rock>(104, 73),
+                    std::make_shared<Rock>(136, 73),
+
+                    std::make_shared<Rock>(8, 105),
+                    std::make_shared<Rock>(40, 105),
+                    std::make_shared<Rock>(72, 105),
+                    std::make_shared<Rock>(104, 105),
+                    std::make_shared<Rock>(136, 105)};
 
     std::vector<std::shared_ptr<Coordinate>> borders = {
         std::make_shared<Coordinate>(0, 0, 160, 9),
