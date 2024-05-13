@@ -16,11 +16,11 @@ void setup()
 
     for (const auto &rock : playground::rocks)
     {
-        collider::drawBlockingElement(rock->coordinate.x, rock->coordinate.y, rock->coordinate.width, rock->coordinate.height);
+        collider::drawBlockingElement(rock.coordinate.x, rock.coordinate.y, rock.coordinate.width, rock.coordinate.height);
     }
     for (const auto &border : playground::borders)
     {
-        collider::drawBlockingElement(border->x, border->y, border->width, border->height);
+        collider::drawBlockingElement(border.x, border.y, border.width, border.height);
     }
 }
 
@@ -34,10 +34,10 @@ void loop()
     gb.display.drawImage(0, 0, sprite::playgroundBackground);
     for (const auto &cell : playground::walkableCells)
     {
-        if (cell->isDestroyableBlockPlacedOnCell)
+        if (cell.isDestroyableBlockPlacedOnCell)
         {
-            gb.display.drawImage(cell->coordinate.x, cell->coordinate.y, sprite::block);
-            collider::drawBlockingElement(cell->coordinate.x, cell->coordinate.y, cell->coordinate.width, cell->coordinate.height);
+            gb.display.drawImage(cell.coordinate.x, cell.coordinate.y, sprite::block);
+            collider::drawBlockingElement(cell.coordinate.x, cell.coordinate.y, cell.coordinate.width, cell.coordinate.height);
         }
     }
 
