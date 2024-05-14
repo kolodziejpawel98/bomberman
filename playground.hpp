@@ -19,7 +19,7 @@ namespace playground
     {
         Coordinate coordinate;
 
-        Rock(int x, int y) : coordinate(x, y) {}
+        Rock(uint8_t x, uint8_t y) : coordinate(x, y) {}
 
         void drawPlacehodler()
         {
@@ -31,13 +31,13 @@ namespace playground
     struct Cell
     {
         Coordinate coordinate;
-        std::pair<int, int> centralPoint;
+        std::pair<uint8_t, uint8_t> centralPoint;
         bool isDestroyableBlockPlacedOnCell;
         bool isUndestroyableStonePlacedOnCell;
         std::vector<std::shared_ptr<Cell>> crossPatternNeighbors; // uint8_t
 
-        Cell(int x,
-             int y,
+        Cell(uint8_t x,
+             uint8_t y,
              bool isDestroyableBlockPlacedOnCell = false,
              bool isUndestroyableStonePlacedOnCell = false) : coordinate(x, y, 16, 16),
                                                               centralPoint({x + 8, y + 8}),
@@ -63,17 +63,16 @@ namespace playground
     struct Bomb
     {
         Coordinate coordinate;
-        Bomb(int x, int y) : coordinate(x, y) {}
+        Bomb(uint8_t x, uint8_t y) : coordinate(x, y) {}
 
         void drawBomb(const std::vector<std::shared_ptr<Cell>>::iterator &cell)
         {
             gb.display.drawImage(cell->get()->centralPoint.first - 8, cell->get()->centralPoint.second - 8, sprite::bomb);
-            drawBlast(cell);
         }
 
-        void drawBlast(const std::vector<std::shared_ptr<Cell>>::iterator &cell)
+        void drawBlast(const std::vector<std::shared_ptr<Cell>>::iterator &cell, const Color blastColor)
         {
-            gb.display.setColor(RED);
+            gb.display.setColor(blastColor);
             for (auto &neighbor : cell->get()->crossPatternNeighbors)
             {
                 gb.display.fillRect(neighbor->coordinate.x, neighbor->coordinate.y, neighbor->coordinate.width, neighbor->coordinate.height);
@@ -89,77 +88,77 @@ namespace playground
         Coordinate(152, 9, 8, 112)};
 
     std::vector<std::shared_ptr<Cell>> cells = {
-        std::make_shared<Cell>(8, 9, false, true),
-        std::make_shared<Cell>(24, 9, false, false),
-        std::make_shared<Cell>(40, 9, false, true),
-        std::make_shared<Cell>(56, 9, false, false),
-        std::make_shared<Cell>(72, 9, false, true),
-        std::make_shared<Cell>(88, 9, false, false),
-        std::make_shared<Cell>(104, 9, false, true),
-        std::make_shared<Cell>(120, 9, false, false),
-        std::make_shared<Cell>(136, 9, false, true),
-
-        std::make_shared<Cell>(8, 25, false, false),
-        std::make_shared<Cell>(24, 25, false, false),
-        std::make_shared<Cell>(40, 25, false, false),
-        std::make_shared<Cell>(56, 25, false, false),
-        std::make_shared<Cell>(72, 25, false, false),
-        std::make_shared<Cell>(88, 25, false, false),
-        std::make_shared<Cell>(104, 25, false, false),
-        std::make_shared<Cell>(120, 25, false, false),
-        std::make_shared<Cell>(136, 25, false, false),
-
-        std::make_shared<Cell>(8, 41, false, true),
-        std::make_shared<Cell>(24, 41, false, false),
-        std::make_shared<Cell>(40, 41, false, true),
-        std::make_shared<Cell>(56, 41, false, false),
-        std::make_shared<Cell>(72, 41, false, true),
-        std::make_shared<Cell>(88, 41, false, false),
-        std::make_shared<Cell>(104, 41, false, true),
-        std::make_shared<Cell>(120, 41, false, false),
-        std::make_shared<Cell>(136, 41, false, true),
-
-        std::make_shared<Cell>(8, 57, false, false),
-        std::make_shared<Cell>(24, 57, false, false),
-        std::make_shared<Cell>(40, 57, false, false),
-        std::make_shared<Cell>(56, 57, false, false),
-        std::make_shared<Cell>(72, 57, false, false),
-        std::make_shared<Cell>(88, 57, false, false),
-        std::make_shared<Cell>(104, 57, false, false),
-        std::make_shared<Cell>(120, 57, false, false),
-        std::make_shared<Cell>(136, 57, false, false),
-
-        std::make_shared<Cell>(8, 73, false, true),
-        std::make_shared<Cell>(24, 73, false, false),
-        std::make_shared<Cell>(40, 73, false, true),
-        std::make_shared<Cell>(56, 73, false, false),
-        std::make_shared<Cell>(72, 73, false, true),
-        std::make_shared<Cell>(88, 73, false, false),
-        std::make_shared<Cell>(104, 73, false, true),
-        std::make_shared<Cell>(120, 73, false, false),
-        std::make_shared<Cell>(136, 73, false, true),
-
-        std::make_shared<Cell>(8, 89, false, false),
-        std::make_shared<Cell>(24, 89, false, false),
-        std::make_shared<Cell>(40, 89, false, false),
-        std::make_shared<Cell>(56, 89, false, false),
-        std::make_shared<Cell>(72, 89, false, false),
-        std::make_shared<Cell>(88, 89, false, false),
-        std::make_shared<Cell>(104, 89, false, false),
-        std::make_shared<Cell>(120, 89, false, false),
-        std::make_shared<Cell>(136, 89, false, false),
-
-        std::make_shared<Cell>(8, 105, false, true),
-        std::make_shared<Cell>(24, 105, false, false),
-        std::make_shared<Cell>(40, 105, false, true),
-        std::make_shared<Cell>(56, 105, false, false),
-        std::make_shared<Cell>(72, 105, false, true),
-        std::make_shared<Cell>(88, 105, false, false),
-        std::make_shared<Cell>(104, 105, false, true),
-        std::make_shared<Cell>(120, 105, false, false),
-        std::make_shared<Cell>(136, 105, false, true)};
-
-    // cells[0]->crossPatternNeighbors.push_back(cells.at(1));
+        // 1st row
+        std::make_shared<Cell>(8, 9, false, true),    // 0
+        std::make_shared<Cell>(24, 9, false, false),  // 1
+        std::make_shared<Cell>(40, 9, false, true),   // 2
+        std::make_shared<Cell>(56, 9, false, false),  // 3
+        std::make_shared<Cell>(72, 9, false, true),   // 4
+        std::make_shared<Cell>(88, 9, false, false),  // 5
+        std::make_shared<Cell>(104, 9, false, true),  // 6
+        std::make_shared<Cell>(120, 9, false, false), // 7
+        std::make_shared<Cell>(136, 9, false, true),  // 8
+        // 2nd row
+        std::make_shared<Cell>(8, 25, false, false),  // 9
+        std::make_shared<Cell>(24, 25, false, false), // 10
+        std::make_shared<Cell>(40, 25, false, false), // 11
+        std::make_shared<Cell>(56, 25, false, false), // 12
+        std::make_shared<Cell>(72, 25, false, false), // 13
+        std::make_shared<Cell>(88, 25, false, false), // 14
+        std::make_shared<Cell>(104, 25, true, false), // 15
+        std::make_shared<Cell>(120, 25, true, false), // 16
+        std::make_shared<Cell>(136, 25, true, false), // 17
+        // 3rd row
+        std::make_shared<Cell>(8, 41, false, true),    // 18
+        std::make_shared<Cell>(24, 41, false, false),  // 19
+        std::make_shared<Cell>(40, 41, false, true),   // 20
+        std::make_shared<Cell>(56, 41, false, false),  // 21
+        std::make_shared<Cell>(72, 41, false, true),   // 22
+        std::make_shared<Cell>(88, 41, false, false),  // 23
+        std::make_shared<Cell>(104, 41, false, true),  // 24
+        std::make_shared<Cell>(120, 41, false, false), // 25
+        std::make_shared<Cell>(136, 41, false, true),  // 26
+        // 4th row
+        std::make_shared<Cell>(8, 57, false, false),   // 27
+        std::make_shared<Cell>(24, 57, false, false),  // 28
+        std::make_shared<Cell>(40, 57, false, false),  // 29
+        std::make_shared<Cell>(56, 57, false, false),  // 30
+        std::make_shared<Cell>(72, 57, true, false),   // 31
+        std::make_shared<Cell>(88, 57, true, false),   // 32
+        std::make_shared<Cell>(104, 57, true, false),  // 33
+        std::make_shared<Cell>(120, 57, false, false), // 34
+        std::make_shared<Cell>(136, 57, true, false),  // 35
+        // 5th row
+        std::make_shared<Cell>(8, 73, false, true),    // 36
+        std::make_shared<Cell>(24, 73, false, false),  // 37
+        std::make_shared<Cell>(40, 73, false, true),   // 38
+        std::make_shared<Cell>(56, 73, false, false),  // 39
+        std::make_shared<Cell>(72, 73, false, true),   // 40
+        std::make_shared<Cell>(88, 73, false, false),  // 41
+        std::make_shared<Cell>(104, 73, false, true),  // 42
+        std::make_shared<Cell>(120, 73, false, false), // 43
+        std::make_shared<Cell>(136, 73, false, true),  // 44
+        // 6th row
+        std::make_shared<Cell>(8, 89, false, false),   // 45
+        std::make_shared<Cell>(24, 89, false, false),  // 46
+        std::make_shared<Cell>(40, 89, false, false),  // 47
+        std::make_shared<Cell>(56, 89, false, false),  // 48
+        std::make_shared<Cell>(72, 89, true, false),   // 49
+        std::make_shared<Cell>(88, 89, false, false),  // 50
+        std::make_shared<Cell>(104, 89, false, false), // 51
+        std::make_shared<Cell>(120, 89, true, false),  // 52
+        std::make_shared<Cell>(136, 89, false, false), // 53
+        // 7th row
+        std::make_shared<Cell>(8, 105, false, true),    // 54
+        std::make_shared<Cell>(24, 105, true, false),   // 55
+        std::make_shared<Cell>(40, 105, false, true),   // 56
+        std::make_shared<Cell>(56, 105, true, false),   // 57
+        std::make_shared<Cell>(72, 105, false, true),   // 58
+        std::make_shared<Cell>(88, 105, false, false),  // 59
+        std::make_shared<Cell>(104, 105, false, true),  // 60
+        std::make_shared<Cell>(120, 105, false, false), // 61
+        std::make_shared<Cell>(136, 105, false, true)   // 62
+    };
 
     void setCrossPatternNeighbors()
     {
@@ -293,12 +292,13 @@ namespace playground
     }
 
     std::vector<std::shared_ptr<Cell>>::iterator findNearestCell(int playerXcoordinate, int playerYcoordinate)
-    { // TODO!!!!!!!!!!!! now lambda takes every cell, but should takes only walkable cells!!!!!!
+    {
         std::vector<std::shared_ptr<Cell>>::iterator iterator = std::min_element(cells.begin(),
                                                                                  cells.end(),
-                                                                                 [&playerXcoordinate, &playerYcoordinate](const std::shared_ptr<Cell> &currentCell, const std::shared_ptr<Cell> &nextCell)
-                                                                                 { return currentCell->getDistanceToCentral(playerXcoordinate, playerYcoordinate) < nextCell->getDistanceToCentral(playerXcoordinate, playerYcoordinate); });
+                                                                                 [&playerXcoordinate,
+                                                                                  &playerYcoordinate](const std::shared_ptr<Cell> &currentCell,
+                                                                                                      const std::shared_ptr<Cell> &nextCell)
+                                                                                 { return currentCell->getDistanceToCentral(playerXcoordinate, playerYcoordinate) < nextCell->getDistanceToCentral(playerXcoordinate, playerYcoordinate) && !currentCell->isUndestroyableStonePlacedOnCell; });
         return iterator;
     }
-
 }

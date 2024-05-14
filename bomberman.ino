@@ -16,7 +16,7 @@ void setup()
 
     for (const auto &block : playground::cells)
     {
-        if (block->isUndestroyableStonePlacedOnCell)
+        if (block->isUndestroyableStonePlacedOnCell && !block->isUndestroyableStonePlacedOnCell)
             collider::drawBlockingElement(block->coordinate.x, block->coordinate.y, block->coordinate.width, block->coordinate.height);
     }
     for (const auto &border : playground::borders)
@@ -48,7 +48,7 @@ void loop()
     if (playground::bomb != nullptr)
     {
         static bool flag = false;
-        static int x, y;
+        static uint8_t x, y;
         if (!flag)
         {
             x = player.x + 8;
@@ -56,22 +56,17 @@ void loop()
             flag = true;
         }
         playground::bomb->drawBomb(playground::findNearestCell(x, y));
-        printNumber(timeCounter, 100, 100);
         gb.sound.play("explosion.wav");
 
+        if (isTimeElapsed(5))
+        {
+            playground::bomb->drawBlast(playground::findNearestCell(x, y), YELLOW);
+        }
         if (isTimeElapsed(10))
         {
-            printText("!!", 100, 100);
+            playground::bomb->drawBlast(playground::findNearestCell(x, y), RED);
         }
-        if (isTimeElapsed(20))
-        {
-            printText("!!!", 100, 100);
-        }
-        if (isTimeElapsed(60))
-        {
-            printText("!!!!!!", 100, 100);
-        }
-        if (isTimeElapsed(70))
+        if (isTimeElapsed(15))
         {
             playground::bomb.reset();
             timeCounter = 0;

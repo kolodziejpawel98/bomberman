@@ -14,12 +14,12 @@
 class Player
 {
 public:
-    int x;
-    int y;
-    int stepLength;
-    int stepLengthX;
-    int stepLengthY;
-    int colliderX, colliderY, colliderWidht, colliderHeight;
+    uint8_t x;
+    uint8_t y;
+    uint8_t stepLength;
+    uint8_t stepLengthX;
+    uint8_t stepLengthY;
+    uint8_t colliderX, colliderY, colliderWidht, colliderHeight;
 
     Player()
     {

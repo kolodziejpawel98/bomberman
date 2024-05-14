@@ -17,14 +17,14 @@
 
 namespace collider
 {
-    void drawBlockingElement(int x, int y, int width, int height);
-    void drawInteractiveElement(int x, int y, int width, int height);
-    void saveInteractiveElement(int x, int y, int width, int height);
-    void saveBlockingElement(int x, int y, int width, int height);
-    bool isBlockingElementColliding(int x, int y, int playerWidth, int playerHeight);
-    bool isInteractiveElementColliding(int x, int y, int playerWidth, int playerHeight);
-    bool isBlockingElementExist(int x, int y, int width, int height);
-    bool isInteractiveElementExist(int x, int y, int width, int height);
+    void drawBlockingElement(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
+    void drawInteractiveElement(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
+    void saveInteractiveElement(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
+    void saveBlockingElement(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
+    bool isBlockingElementColliding(uint8_t x, uint8_t y, uint8_t playerWidth, uint8_t playerHeight);
+    bool isInteractiveElementColliding(uint8_t x, uint8_t y, uint8_t playerWidth, uint8_t playerHeight);
+    bool isBlockingElementExist(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
+    bool isInteractiveElementExist(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
 
     extern std::vector<std::shared_ptr<Coordinate>> blockingElements;
     extern std::vector<std::shared_ptr<Coordinate>> interactiveElements;

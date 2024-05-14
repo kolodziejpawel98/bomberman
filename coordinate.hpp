@@ -10,8 +10,8 @@
 
 struct Coordinate
 {
-    int x, y, width, height;
-    Coordinate(int x, int y, int width, int height) : x(x), y(y), width(width), height(height){};
-    Coordinate(int x, int y) : x(x), y(y), width(16), height(16){};
-    bool isCoordinateExist(int, int, int, int);
+    uint8_t x, y, width, height;
+    Coordinate(uint8_t x, uint8_t y, uint8_t width, uint8_t height) : x(x), y(y), width(width), height(height){};
+    Coordinate(uint8_t x, uint8_t y) : x(x), y(y), width(16), height(16){};
+    bool isCoordinateExist(uint8_t, uint8_t, uint8_t, uint8_t);
 };
