@@ -1,3 +1,4 @@
 {
-    "board": "gamebuino:samd:gamebuino_meta_native"
+    "board": "gamebuino:samd:gamebuino_meta_native",
+    "sketch": "bomberman.ino"
 }
